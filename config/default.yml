@@ -1,0 +1,43 @@
+env:
+  - dev
+  - prod
+dir:
+  assets: "/assets"
+  assetsSass: "/assets/sass"
+  assetsJade: "/assets/jade"
+  assetsImg: "/assets/img"
+  assetsFont: "./assets/font"
+  build:  "/build"
+  devCss: "/tmp/css"
+  buildCss: "/build/css"
+  buildImg: "/build/img"
+  buildFont: "./build/font"
+gulp:
+  compass:
+    http_path: "/webpack-dev-server"
+  image:
+    optimizationLevel: 0
+webpack:
+  entry:
+    - "./src/index.jsx"
+  output:
+    path: "./build"
+    publicPath: "/"
+    filename: "bundle.js"
+  module:
+    loaders:
+      - test: ".jsx?$"
+        include:
+          - "./src"
+          - "./node_modules/react-circular-progress"
+        loader: "babel"
+  resolve:
+    extensions:
+      - ""
+      - ".js"
+      - ".jsx"
+  devServer:
+    hot: false
+    contentBase: "./build"
+  plugins:
+    hasHotModuleReplacement: false
