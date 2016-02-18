@@ -42,6 +42,7 @@ webpack:
       - ""
       - ".js"
       - ".jsx"
+  devtools: "eval-source-map"
   devServer:
     hot: false
     contentBase: "./build"
