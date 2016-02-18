@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {Router, Route} from "react-router";
+import {Router, browserHistory} from "react-router";
 import {Provider} from "react-redux";
 import {Map} from "immutable";
 
@@ -14,7 +14,9 @@ const store = configureStore();
 /** app initial render */
 ReactDOM.render(
   <Provider store={store}>
-    <Router>{routes}</Router>
+    <Router history={browserHistory}>
+      {routes}
+    </Router>
   </Provider>,
   document.getElementById("app")
 );
