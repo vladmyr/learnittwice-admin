@@ -1,6 +1,8 @@
 import React from "react";
 import {connect} from "react-redux";
 
+import "./Test.scss";
+
 export const Test = React.createClass({
   render() {
     return <div>

@@ -3,13 +3,7 @@ import ReactDOM from "react-dom";
 import {Router, Route} from "react-router";
 import {Provider} from "react-redux";
 
-import {App} from "./components/App";
-import {Test} from "./components/Test";
-
-/** app routes */
-const routes = <Route component={App}>
-  <Route path="/" component={Test} />
-</Route>;
+import {routes} from "./routes";
 
 /** app initial render */
 ReactDOM.render(
