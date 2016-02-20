@@ -1,9 +1,11 @@
 var config = require("config");
 var path = require("path");
+var fs = require("fs");
 var gulp = require("gulp");
 var gulpJade = require("gulp-jade");
 var gulpCompass = require("gulp-compass");
 var gulpImagemin = require("gulp-imagemin");
+var through2 = require("through2");
 
 var JADE_SRC = path.join(__dirname, config.dir.assetsJade, "**", "*.jade");
 var JADE_DEST = path.join(__dirname, config.dir.build);
@@ -15,6 +17,7 @@ var CSS_DEST = path.join(__dirname, config.dir.buildCss);
 var CSS_DEV_DEST = path.join(__dirname, config.dir.devCss);
 var FONT_SRC = path.join(__dirname, config.dir.assetsFont);
 var FONT_DEST = path.join(__dirname, config.dir.buildFont);
+var CLIENT_CONFIG_DEST = path.join(__dirname, config.dir.src, config.file.clientConfig);
 
 gulp.task("jade", function () {
   return gulp
@@ -53,11 +56,16 @@ gulp.task("compass", function () {
     .pipe(gulp.dest(CSS_DEST))
 });
 
+gulp.task("client-config", function () {
+  // TODO: use streams
+  fs.writeFile(CLIENT_CONFIG_DEST, JSON.stringify(config.client || {}));
+});
+
 gulp.task("watch", function () {
   gulp.watch(SCSS_SRC, ["compass"]);
   gulp.watch(IMG_SRC, ["image"]);
 });
 
 //gulp.task("build", ["jade", "image", "font", "compass"]);
-gulp.task("build", ["jade", "image", "font"]);
+gulp.task("build", ["client-config", "jade", "image", "font"]);
 gulp.task("dev", ["build", "watch"]);

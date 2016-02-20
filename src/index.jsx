@@ -4,8 +4,12 @@ import {Router, browserHistory} from "react-router";
 import {Provider} from "react-redux";
 import {Map} from "immutable";
 
+import * as config from "./config.json";
 import {routes} from "./routes";
 import configureStore from "./store/configureStore";
+
+/** app globals */
+console.log(config);
 
 /** app redux store */
 const store = configureStore();

@@ -8,10 +8,13 @@ dir:
   assetsImg: "/assets/img"
   assetsFont: "./assets/font"
   build:  "/build"
+  src: "/src"
   devCss: "/tmp/css"
   buildCss: "/build/css"
   buildImg: "/build/img"
   buildFont: "./build/font"
+file:
+  clientConfig: "config.json"
 gulp:
   compass:
     http_path: "/webpack-dev-server"
@@ -26,6 +29,10 @@ webpack:
     filename: "bundle.js"
   module:
     loaders:
+      # json loader
+      - test: ".json$"
+        include: "./src"
+        loader: "json"
       # jsx loader
       - test: ".jsx?$"
         include:
@@ -50,3 +57,11 @@ webpack:
     hasHotModuleReplacement: false
   # config for sass-loader
   sassLoader:
+client:
+  api:
+    protocol: http
+    host: localhost
+    port: 8081
+  models:
+    Test:
+      pathname: /test

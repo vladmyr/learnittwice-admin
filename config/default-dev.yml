@@ -9,14 +9,21 @@ webpack:
     filename: "bundle.js"
   module:
     loaders:
+      # json loader
+      - test: ".json$"
+        include: "./src"
+        loader: "json"
+      # jsx loader
       - test: ".jsx?$"
         include:
           - "./src"
           - "./node_modules/react-circular-progress"
-        loader: "react-hot!babel"
-      - test: ".css$"
-        exclude: "node_modules"
-        loader: "style!css"
+        loader: "babel"
+      # sass loader
+      - test: ".scss$"
+        include:
+          - "./src/components"
+        loader: "style!css!sass"
   resolve:
     extensions:
       - ""
