@@ -1,13 +1,22 @@
 import {Map} from "immutable";
 
+import * as TestActions from "../actions/test";
+
+const test = (state) => {
+  console.log(TestActions.TEST_TEST);
+  return state;
+};
+
 /**
  * Test reducer
  * @param   {Immutable.Map} state
  * @param   {Object}        action
  * @returns {Immutable.Map}
  */
-export default function test (state = Map(), action = {}) {
+export default function testReducer (state = Map(), action = {}) {
   switch(action.type) {
+    case TestActions.TEST_TEST:
+      return test(state);
     default:
       return state;
   }

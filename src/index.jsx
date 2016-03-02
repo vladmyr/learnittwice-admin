@@ -8,12 +8,18 @@ import * as config from "./config.json";
 import {routes} from "./routes";
 import configureStore from "./store/configureStore";
 
+import * as BaseModel from "./models/base";
+
+import * as TestActions from "./actions/test";
+
 /** app globals */
-console.log(config);
+//console.log(config);
 
 /** app redux store */
 const store = configureStore();
 // store.dispatch(action);
+store.dispatch(TestActions.testTest());
+store.dispatch(TestActions.apiFetch());
 
 /** app initial render */
 ReactDOM.render(

@@ -49,9 +49,11 @@
   "dependencies": {
     "backbone": "^1.2.3",
     "backbone.localstorage": "^1.1.16",
+    "bluebird": "^3.3.3",
     "bootstrap-sass": "^3.3.6",
     "history": "^1.17.0",
     "immutable": "^3.7.6",
+    "jquery": "^2.2.1",
     "json-loader": "^0.5.4",
     "moment": "^2.11.1",
     "react": "^0.14.6",

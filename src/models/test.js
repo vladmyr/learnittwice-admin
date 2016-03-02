@@ -1,11 +1,12 @@
 import * as url from "url";
-import Base from "./base";
 
-import * as config from "../config.json";
+import Base from "./base";
+import Util from "../helpers/Util";
+
+export const id = "Test";
 
 const Test = Base.extend({
-  urlRoot: url.resolve(Base.urlRoot, config.backbone.models)
+  urlRoot: Util.Model.getUrlRoot(id)
 });
 
 export default Test;
-export const id = "Test";

@@ -1,3 +1,5 @@
+import { Promise } from "bluebird";
+
 import * as _ from "underscore";
 import * as url from "url";
 import * as config from "../config.json";
@@ -8,7 +10,7 @@ import * as config from "../config.json";
  * @module
  */
 const Util = (() => {
-  const Model = {
+  const UtilModel = {
     getIdAttribute (modelName) {
       return _.has(config.models, modelName, "id")
         ? config.models[modelName].id
@@ -23,11 +25,40 @@ const Util = (() => {
           ? config.models[modelName].pathname
           : ""
       })
+    },
+    promisify (Model) {
+      let proto = Model.prototype;
+      let extend = {
+        fetch(options = {}) {
+          let self = this;
+          return new Promise((fulfill, reject) => {
+            options.success = fulfill;
+            options.error = reject;
+            return proto.fetch.call(self, options)
+          });
+        },
+        save(attrs = {}, options = {}) {
+          return new Promise((fulfill, reject) => {
+            options.success = fulfill;
+            options.error = reject;
+            return proto.save.call(self, attrs, options)
+          });
+        },
+        destroy(options = {}) {
+          return new Promise((fulfill, reject) => {
+            options.success = fulfill;
+            options.error = reject;
+            return proto.destroy.call(self, options)
+          });
+        }
+      };
+
+      return Model.extend(extend);
     }
   };
 
   return {
-    Model: Model
+    Model: UtilModel
   }
 })();
 

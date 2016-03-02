@@ -49,7 +49,6 @@ webpack:
       - ""
       - ".js"
       - ".jsx"
-  devtools: "eval-source-map"
   devServer:
     hot: false
     contentBase: "./build"
@@ -64,4 +63,4 @@ client:
     port: 8081
   models:
     Test:
-      pathname: /test
+      pathname: /tests

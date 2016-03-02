@@ -1,6 +1,10 @@
-import { Model } from "backbone";
+import * as Backbone from "backbone";
+import Promised from "backbone-promised";
+import { Promise } from "bluebird";
 
 import Util from "../helpers/Util";
+
+const Model = Util.Model.promisify(Backbone.Model);
 
 export const id = "Base";
 

@@ -1,10 +1,10 @@
 import {combineReducers} from "redux";
 import {routeReducer} from "react-router-redux";
 
-import test from "./test";
+import testReducer from "./test";
 
 const reducers = combineReducers({
-  test,
+  testReducer,
   routing: routeReducer
 });
 
