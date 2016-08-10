@@ -1,9 +1,7 @@
 import {Map} from "immutable";
-
 import * as TestActions from "../actions/test";
 
 const test = (state) => {
-  console.log(TestActions.TEST_TEST);
   return state;
 };
 

@@ -2,10 +2,12 @@ import React from "react";
 import {Route} from "react-router";
 
 import {App} from "./components/app/App";
-import {Test} from "./components/test/Test";
+import {TestContainer} from "./components/test/Test";
 
-export const routes = <Route component={App}>
-  <Route path="/test-test" component={Test} />
-  <Route path="/test" component={Test} />
-  <Route path="/" component={Test} />
+const routes = <Route component={App}>
+  <Route path="/test-test" component={TestContainer} />
+  <Route path="/test" component={TestContainer} />
+  <Route path="/" component={TestContainer} />
 </Route>;
+
+export default routes;
