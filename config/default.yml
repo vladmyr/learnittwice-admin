@@ -62,5 +62,8 @@ client:
     host: localhost
     port: 8081
   models:
-    Test:
-      pathname: /tests
+    StudyInbox:
+      pathname: /study_inboxes
+  collections:
+    StudyInboxCollection:
+      pathname: /study_inboxes

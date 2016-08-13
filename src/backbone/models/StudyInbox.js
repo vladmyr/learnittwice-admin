@@ -1,11 +1,9 @@
 'use strict';
 
-import {Model} from 'backbone';
+import Util from 'src/helpers/util/index';
+import BaseModel from './BaseModel';
 
-class StudyInbox extends Model {
-  constructor() {
-    super()
-  }
-}
+const name = 'StudyInbox';
+const StudyInbox = BaseModel.extend(Util.Model.postDeclaration({}, name));
 
-export default StudyInbox
+export default StudyInbox;
