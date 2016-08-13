@@ -16,13 +16,13 @@ import * as TestActions from "./redux/actions/test";
 const store = configureStore();
 
 /** test */
-const studyInboxCollection = new StudyInboxCollection();
-
-studyInboxCollection.fetch().then((res) => {
-  console.log(res)
-}).catch((e) => {
-  console.error(e)
-});
+//const studyInboxCollection = new StudyInboxCollection();
+//
+//studyInboxCollection.fetch().then((res) => {
+//  console.log(res)
+//}).catch((e) => {
+//  console.error(e)
+//});
 
 /** app initial render */
 ReactDOM.render(
