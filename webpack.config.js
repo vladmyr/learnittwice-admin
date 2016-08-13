@@ -1,5 +1,6 @@
-var path = require("path");
-var webpack = require("webpack");
+var path = require('path');
+var webpack = require('webpack');
+var _ = require('underscore');
 
 module.exports = function(webpackConfig){
   var plugins = [];
@@ -26,6 +27,11 @@ module.exports = function(webpackConfig){
         loader.include = new RegExp(loader.exclude)
       }
     }
+  });
+
+  // extend resolve with root path which is __dirname
+  webpackConfig.resolve = _.extend(webpackConfig.resolve || {}, {
+    root: [__dirname]
   });
 
   return {
