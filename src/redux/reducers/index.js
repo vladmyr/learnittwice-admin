@@ -1,13 +1,17 @@
-import {combineReducers} from "redux";
-import {routerReducer} from "react-router-redux";
+import {combineReducers} from 'redux';
+import {Map} from 'immutable';
+//import {routerReducer} from "react-router-redux";
 
-import testReducer from "./test";
 import studyInboxReducer from './studyInboxReducer';
 
-const reducers = combineReducers({
-  //testReducer,
-  studyInbox: studyInboxReducer,
-  routing: routerReducer
-});
+//const reducers = combineReducers({
+//  studyInbox: studyInboxReducer
+//});
+
+const reducers = (state = Map({}), action) => {
+  return Map({
+    studyInbox: studyInboxReducer(state.get('studyInbox'), action)
+  })
+};
 
 export default reducers;

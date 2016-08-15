@@ -1,27 +1,17 @@
 'use strict';
 
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import StudyInboxListItem from './StudyInboxListItem'
 
 class StudyInboxList extends React.Component {
   render() {
-    return <div className="study-inbox__list">
-
-    </div>
+    return <ul className="study-inbox__list">
+      {this.props.list.map((item, index) => {
+        return <StudyInboxListItem key={index} name={item.name} />
+      })}
+    </ul>
   }
 }
 
-const mapStateToProps = (state) => ({
-  state
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  list
-});
-
-const StudyInboxListContainer = connect(
-  mapStateToProps
-  //mapDispatchToProps
-)(StudyInboxList);
-
-export default StudyInboxListContainer;
+export default StudyInboxList;

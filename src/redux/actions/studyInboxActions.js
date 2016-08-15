@@ -24,8 +24,10 @@ export const reqMany = (page = 0) => ({
   page: page
 });
 
-export const resMany = () => ({
-  type: RES_MANY
+export const resMany = (page = 0, list) => ({
+  type: RES_MANY,
+  page: page,
+  list: list
 });
 
 export const reqOne = (id) => ({
@@ -69,7 +71,7 @@ export const resDelete = () => ({
 
 /** THUNK ACTION CREATORS */
 
-export const list = (page = 0) => {
+export const fetchList = (page = 0) => {
   return (dispatch, getState) => {
     let studyInboxCollection = new StudyInboxCollection();
 
@@ -77,12 +79,12 @@ export const list = (page = 0) => {
 
     return studyInboxCollection
       .fetch({ data: { page: page } })
-      .then((collection, res, options) => {
-        return dispatch(resMany(res))
+      .then((result) => {
+        return dispatch(resMany(page, result.obj.toJSON()))
       })
-      .catch((collection, res, options) => {
+      .catch((e) => {
         // TODO: implement error handling
-        console.error(res);
+        console.error(e);
       });
   }
 };

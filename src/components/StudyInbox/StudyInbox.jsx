@@ -1,15 +1,19 @@
 'use strict';
 
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import './StudyInbox.scss';
 
-import {reqOne, list} from 'src/redux/actions/studyInboxActions';
+import { reqOne, fetchList } from 'src/redux/actions/studyInboxActions';
 import StudyInboxList from './StudyInboxList';
 
 class StudyInbox extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
   componentDidMount() {
-    this.props.list();
+    this.props.fetchList();
   }
 
   componentDidUpdate() {
@@ -19,17 +23,17 @@ class StudyInbox extends React.Component {
   render() {
     return <div>
       <h4>StudyInbox</h4>
-      <StudyInboxList />
+      <StudyInboxList {...this.props} />
     </div>
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  state
-});
+const mapStateToProps = (state, ownProps) => {
+  return state.get('studyInbox').toJS();
+};
 
 const mapDispatchToProps = {
-  list: list
+  fetchList: fetchList
 };
 
 const StudyInboxContainer = connect(
