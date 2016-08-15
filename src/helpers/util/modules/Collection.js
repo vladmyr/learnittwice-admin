@@ -1,6 +1,7 @@
 'use strict';
 
 import {Promise} from 'bluebird';
+import Util from 'src/helpers/util/index';
 import * as _ from 'underscore';
 import * as url from 'url';
 import * as config from 'src/config.json';
@@ -17,8 +18,8 @@ class UtilCollection {
       fetch(options = {}) {
         const self = this;
         return new Promise((fulfill, reject) => {
-          options.success = fulfill;
-          options.error = reject;
+          options.success = Util.Backbone.mapArgsHandler(fulfill);
+          options.error = Util.Backbone.mapArgsHandler(reject);
           return proto.fetch.call(self, options);
         })
       }

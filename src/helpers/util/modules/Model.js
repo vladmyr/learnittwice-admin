@@ -1,13 +1,14 @@
 'use strict';
 
 import {Promise} from 'bluebird';
+import {Util} from 'src/helpers/util/index';
 import * as _ from 'underscore';
-import * as url from "url";
-import * as config from "src/config.json";
+import * as url from 'url';
+import * as config from 'src/config.json';
 
 class UtilModel {
   /**
-   * Promisify fetch, save, destroy
+   * Promisify fetch, save, destroy methods
    * @param   {Backbone.Model}  Model
    * @returns {Backbone.Model}
    */
@@ -17,16 +18,16 @@ class UtilModel {
       fetch(options = {}) {
         const self = this;
         return new Promise((fulfill, reject) => {
-          options.success = fulfill;
-          options.error = reject;
+          options.success = Util.Backbone.mapArgsHandler(fulfill);
+          options.error = Util.Backbone.mapArgsHandler(reject);
           return proto.fetch.call(self, options);
         })
       },
 
       save(attrs = {}, options = {}) {
         return new Promise((fulfill, reject) => {
-          options.success = fulfill;
-          options.error = reject;
+          options.success = Util.Backbone.mapArgsHandler(fulfill);
+          options.error = Util.Backbone.mapArgsHandler(reject);
           return proto.save.call(proto, attrs, options);
         });
       },
@@ -34,8 +35,8 @@ class UtilModel {
       destroy(options = {}) {
         const self = this;
         return new Promise((fulfill, reject) => {
-          options.success = fulfill;
-          options.error = reject;
+          options.success = Util.Backbone.mapArgsHandler(fulfill);
+          options.error = Util.Backbone.mapArgsHandler(reject);
           return proto.destroy.call(proto, options)
         })
       }
