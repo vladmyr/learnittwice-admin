@@ -1,12 +1,16 @@
-import React from "react";
-import "./App.scss";
+import React from 'react';
+import './App.scss';
 
-const App = React.createClass({
+import * as studyInboxActions from 'src/redux/actions/studyInboxActions';
+
+class App extends React.Component {
   render() {
-    return <div>
+    return <div className="universe">
+      <div className="header"></div>
       {this.props.children}
+      <div className="footer"></div>
     </div>
   }
-});
+}
 
-export { App };
+export default App;

@@ -4,21 +4,33 @@ import React from 'react';
 import {connect} from 'react-redux';
 import './StudyInbox.scss';
 
+import {reqOne, list} from 'src/redux/actions/studyInboxActions';
 import StudyInboxList from './StudyInboxList';
 
-const StudyInbox = React.createClass({
-  return() {
-    return <StudyInboxList />
+class StudyInbox extends React.Component {
+  componentDidMount() {
+    this.props.list();
   }
-});
+
+  componentDidUpdate() {
+
+  }
+
+  render() {
+    return <div>
+      <h4>StudyInbox</h4>
+      <StudyInboxList />
+    </div>
+  }
+}
 
 const mapStateToProps = (state, ownProps) => ({
   state
 });
 
-const mapDispatchToProps = (dispatch) => ({
-
-});
+const mapDispatchToProps = {
+  list: list
+};
 
 const StudyInboxContainer = connect(
   mapStateToProps,

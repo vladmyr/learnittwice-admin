@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {Router, Route, hashHistory} from "react-router";
+import {Router, Route, browserHistory, hashHistory} from "react-router";
 import {Provider} from "react-redux";
 
 import * as config from "./config.json";
@@ -9,6 +9,7 @@ import configureStore from "./redux/store/configureStore";
 
 import StudyInboxCollection from 'src/backbone/collections/StudyInboxCollection';
 import * as TestActions from "./redux/actions/test";
+import * as StudyInboxActions from 'src/redux/actions/studyInboxActions';
 
 /** app globals */
 
@@ -27,9 +28,7 @@ const store = configureStore();
 /** app initial render */
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hashHistory}>
-      {routes}
-    </Router>
+    <Router routes={routes} history={hashHistory} />
   </Provider>,
   document.getElementById("app")
 );

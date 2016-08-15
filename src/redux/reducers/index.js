@@ -1,13 +1,13 @@
 import {combineReducers} from "redux";
-import {routeReducer} from "react-router-redux";
+import {routerReducer} from "react-router-redux";
 
 import testReducer from "./test";
 import studyInboxReducer from './studyInboxReducer';
 
 const reducers = combineReducers({
-  testReducer,
-  studyInboxReducer,
-  routing: routeReducer
+  //testReducer,
+  studyInbox: studyInboxReducer,
+  routing: routerReducer
 });
 
 export default reducers;

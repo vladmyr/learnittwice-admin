@@ -1,5 +1,10 @@
 'use strict';
 
+import { Promise } from 'bluebird';
+
+import StudyInboxCollection from 'src/backbone/collections/StudyInboxCollection';
+import StudyInbox from 'src/backbone/models/StudyInbox';
+
 export const REQ_MANY = 'STUDY_INBOX_REQ_MANY';
 export const RES_MANY = 'STUDY_INBOX_RES_MANY';
 export const REQ_ONE = 'STUDY_INBOX_REQ_ONE';
@@ -59,3 +64,25 @@ export const reqDelete = (id) => ({
 export const resDelete = () => ({
   type: RES_DELETE
 });
+
+
+
+/** THUNK ACTION CREATORS */
+
+export const list = (page = 0) => {
+  return (dispatch, getState) => {
+    let studyInboxCollection = new StudyInboxCollection();
+
+    dispatch(reqMany(page));
+
+    return studyInboxCollection
+      .fetch({ data: { page: page } })
+      .then((collection, res, options) => {
+        return dispatch(resMany(res))
+      })
+      .catch((collection, res, options) => {
+        // TODO: implement error handling
+        console.error(res);
+      });
+  }
+};
