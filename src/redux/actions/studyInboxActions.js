@@ -15,6 +15,7 @@ export const REQ_UPDATE = 'STUDY_INBOX_REQ_UPDATE';
 export const RES_UPDATE = 'STUDY_INBOX_RES_UPDATE';
 export const REQ_DELETE = 'STUDY_INBOX_REQ_DELETE';
 export const RES_DELETE = 'STUDY_INBOX_RES_DELETE';
+export const MANAGER = 'STUDY_INBOX_MANAGER';
 
 
 /** ACTION CREATORS */
@@ -65,6 +66,17 @@ export const reqDelete = (id) => ({
 
 export const resDelete = () => ({
   type: RES_DELETE
+});
+
+export const openManager = (id = 0) => ({
+  type: MANAGER,
+  isVisible: true,
+  id: id
+});
+
+export const closeManager = () => ({
+  type: MANAGER,
+  isVisible: false
 });
 
 

@@ -6,6 +6,7 @@ import * as actions from 'src/redux/actions/studyInboxActions';
 const initialState = Map({
   list: List(),
   page: 0,
+  isManagerVisible: false,
   inboxId: 0,
   inbox: null
 });

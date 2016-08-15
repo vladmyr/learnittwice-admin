@@ -6,6 +6,7 @@ import './StudyInbox.scss';
 
 import { reqOne, fetchList } from 'src/redux/actions/studyInboxActions';
 import StudyInboxList from './StudyInboxList';
+import StudyInboxManager from './StudyInboxManager';
 
 class StudyInbox extends React.Component {
   constructor(props) {
@@ -24,6 +25,8 @@ class StudyInbox extends React.Component {
     return <div>
       <h4>StudyInbox</h4>
       <StudyInboxList {...this.props} />
+      <h4>StudyInboxManager</h4>
+      <StudyInboxManager />
     </div>
   }
 }
