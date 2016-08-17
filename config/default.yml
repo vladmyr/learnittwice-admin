@@ -3,14 +3,16 @@ env:
   - prod
 dir:
   assets: "/assets"
-  assetsSass: "/assets/sass"
+  assetsScss: "/assets/scss"
   assetsJade: "/assets/jade"
   assetsImg: "/assets/img"
   assetsFont: "./assets/font"
   build:  "/build"
+  config: "/config"
   src: "/src"
   devCss: "/tmp/css"
   buildCss: "/build/css"
+  buildVendorCss: "/build/vendor/css"
   buildImg: "/build/img"
   buildFont: "./build/font"
 file:
@@ -20,6 +22,11 @@ gulp:
     http_path: "/webpack-dev-server"
   image:
     optimizationLevel: 0
+  vendor:
+    css:
+      src:
+        - "./node_modules/metro-ui/build/css/metro.min.css"
+      filename: "vendor.css"
 webpack:
   entry:
     - "./src/index.jsx"
@@ -60,7 +67,7 @@ client:
   api:
     protocol: http
     host: localhost
-    port: 8081
+    port: 8082
   models:
     StudyInbox:
       pathname: /study_inboxes
