@@ -4,7 +4,6 @@ var path = require('path');
 var fs = require('fs');
 var gulp = require('gulp');
 var gulpJade = require('gulp-jade');
-var gulpCompass = require('gulp-compass');
 var gulpImagemin = require('gulp-imagemin');
 var through2 = require('through2');
 
@@ -13,7 +12,7 @@ var JADE_DEST = path.join(__dirname, config.dir.build);
 var IMG_SRC = path.join(__dirname, config.dir.assetsImg, '**', '*');
 var IMG_DEST = path.join(__dirname, config.dir.buildImg);
 var SCSS_SRC_DIR = path.join(__dirname, config.dir.assetsScss);
-var SCSS_SRC = path.join(SCSS_SRC_DIR, '**', '*.scss');
+var SCSS_SRC = path.join(SCSS_SRC_DIR, 'index.scss'); // FIXME: move to config
 var CSS_DEST = path.join(__dirname, config.dir.buildCss);
 var CSS_VENDOR_DEST = path.join(__dirname, config.dir.buildVendorCss);
 var CSS_DEV_DEST = path.join(__dirname, config.dir.devCss);
@@ -46,20 +45,6 @@ gulp.task('font', function(){
     .pipe(gulp.dest(FONT_DEST));
 });
 
-gulp.task('compass', function () {
-  return gulp
-    .src(SCSS_SRC)
-    .pipe(gulpCompass({
-      sass: SCSS_SRC_DIR,
-      image: IMG_DEST,
-      generated_images_path: IMG_DEST,
-      http_path: IMG_DEST,
-      font: FONT_DEST,
-      css: CSS_DEST
-    }))
-    .pipe(gulp.dest(CSS_DEST))
-});
-
 gulp.task('client-config', function () {
   // TODO: find better solution
   delete require.cache[require.resolve('config')];
@@ -75,11 +60,9 @@ gulp.task('vendor:css', function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch(SCSS_SRC, ['compass']);
   gulp.watch(IMG_SRC, ['image']);
   gulp.watch(CLIENT_CONFIG_SRC, ['client-config']);
 });
 
-//gulp.task('build', ['jade', 'image', 'font', 'compass']);
 gulp.task('build', ['client-config', 'vendor:css', 'jade', 'image', 'font']);
 gulp.task('dev', ['build', 'watch']);

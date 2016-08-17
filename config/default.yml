@@ -2,12 +2,12 @@ env:
   - dev
   - prod
 dir:
-  assets: "/assets"
-  assetsScss: "/assets/scss"
-  assetsJade: "/assets/jade"
-  assetsImg: "/assets/img"
-  assetsFont: "./assets/font"
-  build:  "/build"
+  assets: "/src/assets"
+  assetsScss: "/src/assets/scss/ui/"
+  assetsJade: "/src/assets/jade"
+  assetsImg: "/src/assets/img"
+  assetsFont: "./src/assets/font"
+  build: "/build"
   config: "/config"
   src: "/src"
   devCss: "/tmp/css"
@@ -49,8 +49,9 @@ webpack:
       # sass loader
       - test: ".scss$"
         include:
+          - "./src/assets/scss"
           - "./src/components"
-        loader: "style!css!sass"
+        loader: "style!css!sass?outputStyle=expanded&includePaths[]='./node_modules/compass-mixins/lib'!sass-resources"
   resolve:
     extensions:
       - ""
@@ -62,12 +63,13 @@ webpack:
   plugins:
     hasHotModuleReplacement: false
   # config for sass-loader
+  sassResources: ["./src/assets/scss/**/*.scss", "./src/components/**/*.scss"]
   sassLoader:
 client:
   api:
     protocol: http
     host: localhost
-    port: 8082
+    port: 8081
   models:
     StudyInbox:
       pathname: /study_inboxes

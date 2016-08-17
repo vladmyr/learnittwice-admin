@@ -29,6 +29,7 @@ class InputText extends React.Component {
     return <div className="input__text">
       <h5>{this.props.title}</h5>
       <input type="text"
+             className="input-control text"
              name={this.props.name}
              placeholder={this.props.placeholder}
              value={this.state.value}

@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import './StudyInbox.scss';
 
 import { reqOne, fetchList } from 'src/redux/actions/studyInboxActions';
 import StudyInboxList from './StudyInboxList';
@@ -22,11 +21,15 @@ class StudyInbox extends React.Component {
   }
 
   render() {
-    return <div>
-      <h4>StudyInbox</h4>
-      <StudyInboxList {...this.props} />
-      <h4>StudyInboxManager</h4>
-      <StudyInboxManager />
+    return <div className="l-grid--doublet">
+      <div className="l-grid__item">
+        <h4>StudyInbox</h4>
+        <StudyInboxList {...this.props} />
+      </div>
+      <div className="l-grid__item">
+        <h4>StudyInboxManager</h4>
+        <StudyInboxManager />
+      </div>
     </div>
   }
 }

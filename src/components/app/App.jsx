@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.scss';
+import './bundle.scss';
 
 import * as studyInboxActions from 'src/redux/actions/studyInboxActions';
 

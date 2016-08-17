@@ -1,0 +1,9 @@
+.l-grid__item { float:left; }
+
+.l-grid--doublet {
+  .l-grid__item { width:50%; }
+}
+
+.l-grid--quartet {
+  .l-grid__item { width:25%; }
+}
