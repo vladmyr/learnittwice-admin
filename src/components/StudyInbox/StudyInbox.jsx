@@ -21,7 +21,7 @@ class StudyInbox extends React.Component {
   }
 
   render() {
-    return <div className="l-grid--doublet">
+    return <div className="l-grid l-grid--doublet">
       <div className="l-grid__item">
         <h4>StudyInbox</h4>
         <StudyInboxList {...this.props} />

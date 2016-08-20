@@ -1,0 +1,5 @@
+input[type='text'] { display:inline-block; position:relative;
+  min-height:$s-input-text-min-height; height:$s-input-text-min-height;
+  margin:$s-input-text-margin-v 0; padding: 0 $s-input-text-padding-h;
+  line-height:1; vertical-align:middle;
+}

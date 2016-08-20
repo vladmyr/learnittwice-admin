@@ -1,0 +1,7 @@
+ul { list-style:none; }
+
+li { position:relative; padding:$s-list-item-padding;
+  border-bottom:$s-list-item-border-width solid $c-list-item-border-bottom;
+}
+
+li:hover { background-color:$c-list-item-hover; }

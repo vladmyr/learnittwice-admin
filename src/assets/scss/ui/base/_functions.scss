@@ -1,0 +1,12 @@
+/// remove unit from input $number
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1)
+  }
+  @return $number;
+}
+
+/// calculate em value from specified px value and context
+@function em($s-px, $context: $g-browser-context) {
+  @return #{(strip-unit($s-px)/strip-unit($context))}em;
+}

@@ -1,9 +1,27 @@
+/*
+ * GRID COMMON
+ */
+
+.l-grid {
+  @include l-grid-item-inner-padding($s-l-grid-item-padding-vertical, $s-l-grid-item-padding-horizontal);
+}
 .l-grid__item { float:left; }
 
+
+/*
+ * GRID DOUBLET
+ */
+
 .l-grid--doublet {
-  .l-grid__item { width:50%; }
+  @include l-grid-item-width(50%);
 }
 
+
+
+/*
+ * GRID QUARTET
+ */
+
 .l-grid--quartet {
-  .l-grid__item { width:25%; }
+  @include l-grid-item-width(25%);
 }

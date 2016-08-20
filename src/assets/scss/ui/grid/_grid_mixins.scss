@@ -1,0 +1,7 @@
+@mixin l-grid-item-inner-padding($s-padding-vertical, $s-padding-horizontal:$s-padding-vertical) {
+  .l-grid__item { padding:$s-padding-vertical $s-padding-horizontal; }
+}
+
+@mixin l-grid-item-width($s-width) {
+  .l-grid__item { width:$s-width; }
+}
