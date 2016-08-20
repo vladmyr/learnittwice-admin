@@ -7,7 +7,8 @@ const defaultProps = {
   title: 'title',
   placeholder: 'placeholder',
   name: 'name',
-  value: 'value'
+  value: 'value',
+  stateListener: Function.prototype()
 };
 
 class InputText extends React.Component {
@@ -19,10 +20,16 @@ class InputText extends React.Component {
     }
   }
 
-  onChangeListener(event) {
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      value: newProps.value
+    });
+  }
+
+  onChange(event) {
     this.setState({
       value: event.target.value
-    })
+    });
   }
 
   render() {
@@ -33,7 +40,7 @@ class InputText extends React.Component {
              name={this.props.name}
              placeholder={this.props.placeholder}
              value={this.state.value}
-             onChange={this.onChangeListener.bind(this)}
+             onChange={this.onChange.bind(this)}
       />
     </div>
   }

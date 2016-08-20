@@ -65,7 +65,6 @@ webpack:
     hasHotModuleReplacement: true
   # config for sass-loader
   sassResources: ["./src/assets/scss/**/*.scss", "./src/components/**/*.scss"]
-  sassLoader:
 client:
   api:
     protocol: http

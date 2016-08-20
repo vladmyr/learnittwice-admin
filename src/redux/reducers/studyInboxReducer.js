@@ -7,8 +7,9 @@ import * as actions from 'src/redux/actions/studyInboxActions';
 const initialState = Map({
   Manager: Map({
     isVisible: false,
+    hasChanges: false,
     inboxId: null,
-    updatedData: {}
+    inboxData: {}
   }),
   listIds: List(),
   list: List(),
@@ -24,11 +25,21 @@ const setList = (state, page = 0, list = []) => {
 };
 
 const setSelectedInbox = (state, id = null) => {
+  let indexData = {};
+
+  if (id) {
+    let index = state.get('listIds').indexOf(id);
+
+    if (index != -1) {
+      indexData = state.getIn(['list', index]);
+    }
+  }
+
   return state
     .set('Manager', Map({
       isVisible: true,
       inboxId: id,
-      inboxData: {}
+      inboxData: indexData
     }))
 };
 
@@ -43,4 +54,4 @@ const studyInboxReducer = (state = initialState, action) => {
   }
 };
 
-export default studyInboxReducer;
+export { studyInboxReducer, initialState };

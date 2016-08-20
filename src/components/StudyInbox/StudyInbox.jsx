@@ -21,7 +21,7 @@ class StudyInbox extends React.Component {
 
   }
 
-  actSelectInbox(id = 0) {
+  actSelectInbox(id = null) {
     this.props.openManager(id);
     return;
   }
@@ -38,7 +38,10 @@ class StudyInbox extends React.Component {
       </div>
       {this.props.Manager.isVisible
         ? <div className="l-grid__item">
-            <StudyInboxManager {...this.props.Manager} />
+            <StudyInboxManager
+              ref="Manager"
+              {...this.props.Manager}
+            />
           </div>
         : null
       }
