@@ -3,7 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { reqOne, fetchList } from 'src/redux/actions/studyInboxActions';
+import { reqOne, fetchList, openManager } from 'src/redux/actions/studyInboxActions';
 import StudyInboxList from './StudyInboxList';
 import StudyInboxManager from './StudyInboxManager';
 
@@ -14,32 +14,47 @@ class StudyInbox extends React.Component {
 
   componentDidMount() {
     this.props.fetchList();
+    return;
   }
 
   componentDidUpdate() {
 
   }
 
+  actSelectInbox(id = 0) {
+    this.props.openManager(id);
+    return;
+  }
+
   render() {
+    const actSelectInboxBound = this.actSelectInbox.bind(this);
+
     return <div className="l-grid l-grid--doublet">
       <div className="l-grid__item">
-        <h4>StudyInbox</h4>
-        <StudyInboxList {...this.props} />
+        <StudyInboxList
+          actSelectInbox={actSelectInboxBound}
+          {...this.props}
+        />
       </div>
-      <div className="l-grid__item">
-        <h4>StudyInboxManager</h4>
-        <StudyInboxManager />
-      </div>
+      {this.props.Manager.isVisible
+        ? <div className="l-grid__item">
+            <StudyInboxManager {...this.props.Manager} />
+          </div>
+        : null
+      }
+
     </div>
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return state.get('studyInbox').toJS();
+  return state.get('StudyInbox').toJS();
 };
 
 const mapDispatchToProps = {
-  fetchList: fetchList
+  reqOne: reqOne,
+  fetchList: fetchList,
+  openManager: openManager
 };
 
 const StudyInboxContainer = connect(

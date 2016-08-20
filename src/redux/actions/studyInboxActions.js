@@ -1,6 +1,7 @@
 'use strict';
 
 import { Promise } from 'bluebird';
+import * as _ from 'underscore';
 
 import StudyInboxCollection from 'src/backbone/collections/StudyInboxCollection';
 import StudyInbox from 'src/backbone/models/StudyInbox';
@@ -15,7 +16,7 @@ export const REQ_UPDATE = 'STUDY_INBOX_REQ_UPDATE';
 export const RES_UPDATE = 'STUDY_INBOX_RES_UPDATE';
 export const REQ_DELETE = 'STUDY_INBOX_REQ_DELETE';
 export const RES_DELETE = 'STUDY_INBOX_RES_DELETE';
-export const MANAGER = 'STUDY_INBOX_MANAGER';
+export const MANAGER_OPEN = 'STUDY_INBOX_MANAGER_OPEN';
 
 
 /** ACTION CREATORS */
@@ -68,15 +69,9 @@ export const resDelete = () => ({
   type: RES_DELETE
 });
 
-export const openManager = (id = 0) => ({
-  type: MANAGER,
-  isVisible: true,
+export const openManager = (id = null) => ({
+  type: MANAGER_OPEN,
   id: id
-});
-
-export const closeManager = () => ({
-  type: MANAGER,
-  isVisible: false
 });
 
 
@@ -92,7 +87,8 @@ export const fetchList = (page = 0) => {
     return studyInboxCollection
       .fetch({ data: { page: page } })
       .then((result) => {
-        return dispatch(resMany(page, result.obj.toJSON()))
+        dispatch(resMany(page, result.obj.toJSON()));
+        return;
       })
       .catch((e) => {
         // TODO: implement error handling

@@ -4,13 +4,9 @@ import {Map} from 'immutable';
 
 import studyInboxReducer from './studyInboxReducer';
 
-//const reducers = combineReducers({
-//  studyInbox: studyInboxReducer
-//});
-
 const reducers = (state = Map({}), action) => {
   return Map({
-    studyInbox: studyInboxReducer(state.get('studyInbox'), action)
+    StudyInbox: studyInboxReducer(state.get('StudyInbox'), action)
   })
 };
 

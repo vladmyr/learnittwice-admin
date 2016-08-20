@@ -26,10 +26,10 @@ class InputText extends React.Component {
   }
 
   render() {
-    return <div className="input__text">
-      <h5>{this.props.title}</h5>
+    return <div className="c-input__text">
+      <h5 className="c-input__header">{this.props.title}</h5>
       <input type="text"
-             className=""
+             className="c-input__field"
              name={this.props.name}
              placeholder={this.props.placeholder}
              value={this.state.value}
