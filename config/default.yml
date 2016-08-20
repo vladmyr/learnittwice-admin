@@ -58,9 +58,9 @@ webpack:
       - ".js"
       - ".jsx"
   devServer:
-
     hot: true
     contentBase: "./build"
+  devtool: "source-maps"
   plugins:
     hasHotModuleReplacement: true
   # config for sass-loader

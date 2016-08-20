@@ -41,6 +41,7 @@ module.exports = function(webpackConfig){
     module: webpackConfig.module,
     resolve: webpackConfig.resolve,
     devServer: webpackConfig.devServer,
+    devtool: webpackConfig.devtool,
     plugins: plugins
   };
 };
