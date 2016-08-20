@@ -8,6 +8,17 @@
 .l-grid__item { float:left; }
 
 
+
+/*
+ * GRID DOUBLET
+ */
+
+.l-grid--unlimited { display:inline-block; min-width:100%;
+  @include l-grid-item-width(50%);
+}
+
+
+
 /*
  * GRID DOUBLET
  */
