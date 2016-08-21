@@ -4,6 +4,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { reqOne, fetchList, openManager } from 'src/redux/actions/studyInboxActions';
+import { open } from 'src/redux/actions/modalActions';
+
 import StudyInboxList from './StudyInboxList';
 import StudyInboxManager from './StudyInboxManager';
 
@@ -14,7 +16,7 @@ class StudyInbox extends React.Component {
 
   componentDidMount() {
     this.props.fetchList();
-    return;
+    this.props.open();
   }
 
   componentDidUpdate() {
@@ -23,7 +25,6 @@ class StudyInbox extends React.Component {
 
   actSelectInbox(id = null) {
     this.props.openManager(id);
-    return;
   }
 
   render() {
@@ -55,9 +56,10 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = {
-  reqOne: reqOne,
-  fetchList: fetchList,
-  openManager: openManager
+  reqOne,
+  fetchList,
+  openManager,
+  open
 };
 
 const StudyInboxContainer = connect(

@@ -1,7 +1,7 @@
 import React from "react";
 
-import {App} from "src/components/App/App";
-import {StudyInboxContainer} from 'src/components/StudyInbox/StudyInbox.jsx';
+import App from "src/components/App/App";
+import { StudyInboxContainer } from 'src/components/StudyInbox/StudyInbox.jsx';
 
 //const routes = <Route component={App}>
 //  <Route path="/test-test" component={TestContainer} />
@@ -13,6 +13,9 @@ import {StudyInboxContainer} from 'src/components/StudyInbox/StudyInbox.jsx';
 const routes = {
   path: '/',
   component: App,
+  indexRoute: {
+    component: App
+  },
   childRoutes: [{
     path: 'inbox',
     component: StudyInboxContainer

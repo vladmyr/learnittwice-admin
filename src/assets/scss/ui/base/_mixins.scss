@@ -1,0 +1,7 @@
+@mixin absolute-center-v($s-offset:50%) {
+  top:$s-offset; transform:translateY(-50%);
+}
+
+@mixin absolute-center-h($s-offset:50%) {
+  left:$s-offset; transform:translateX(-50%);
+}

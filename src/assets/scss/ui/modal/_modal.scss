@@ -1,0 +1,25 @@
+/*
+ * MODAL COMPONENT
+ */
+
+.c-modal { position:fixed;
+  top:0; bottom:0; left:0; right:0;
+
+  .is-visible { display:block; }
+}
+
+.c-modal__overlay { position:fixed;
+  top:0; bottom:0; left:0; right:0;
+  background-color:$c-modal-overlay-background-color;
+}
+
+.c-modal__window { @include absolute-center-v(30%);
+  position:fixed; left:0; right:0;
+  padding:$s-modal-window-padding;
+  background-color:$c-modal-window-background-color;
+}
+
+.c-modal__title,
+.c-modal__message { color:$c-modal-window; }
+.c-modal__message { font-size:$fz-modal-message; }
+.c-modal__footer { margin-top:em($s-modal-footer-margin-top, $fz-modal-message); }

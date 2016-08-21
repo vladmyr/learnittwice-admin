@@ -1,6 +1,6 @@
 'use strict';
 
-import {Map, List, fromJS} from 'immutable';
+import { Map, List, fromJS } from 'immutable';
 import * as _ from 'underscore';
 import * as actions from 'src/redux/actions/studyInboxActions';
 

@@ -3,8 +3,8 @@
 import React from 'react';
 
 const defaultProps = {
+  className: 'button',
   label: 'label',
-  href: '',
   onClick() {}
 };
 
@@ -20,9 +20,10 @@ class BtnGeneric extends React.Component {
   }
 
   render() {
-    return <a className="btn"
-              disabled={this.state.isDisabled}
-              onClick={this.props.onClick}
+    return <a
+      className={this.props.className}
+      disabled={this.state.isDisabled}
+      onClick={this.props.onClick}
     >
       {this.props.children ? this.props.children : this.props.label }
     </a>
