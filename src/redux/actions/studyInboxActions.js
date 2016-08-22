@@ -18,8 +18,8 @@ export const REQ_DELETE = 'STUDY_INBOX_REQ_DELETE';
 export const RES_DELETE = 'STUDY_INBOX_RES_DELETE';
 export const MANAGER_OPEN = 'STUDY_INBOX_MANAGER_OPEN';
 export const MANAGER_CLOSE = 'STUDY_INBOX_MANAGER_CLOSE';
-export const MANAGER_SWITCH = 'STUDY_INBOX_MANAGER_SWITCH_INBOX';
 export const MANAGER_HAS_CHANGES = 'STUDY_INBOX_MANAGER_HAS_CHANGES';
+export const MANAGER_SET_DATA = 'STUDY_INBOX_MANAGER_SET_DATA';
 
 
 
@@ -78,6 +78,15 @@ export const openManager = (id = null) => ({
   id: id
 });
 
+export const setManagerHasChanges = (bool = false) => ({
+  type: MANAGER_HAS_CHANGES,
+  bool: bool
+});
+
+export const setManagerData = (inboxData = {}) => ({
+  type: MANAGER_SET_DATA,
+  inboxData: inboxData
+});
 
 
 /** THUNK ACTION CREATORS */

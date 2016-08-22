@@ -9,10 +9,11 @@ export const TYPE = {
   CONFIRM: 'CONFIRM'
 };
 
-export const open = (modalType = TYPE.ALERT, modalProps = {}) => {
+export const open = (confirmAction = {}, modalType = TYPE.ALERT, modalProps) => {
   return {
     type: OPEN,
     modalType: modalType,
+    modalConfirmAction: confirmAction,
     modalProps: modalProps
   }
 };

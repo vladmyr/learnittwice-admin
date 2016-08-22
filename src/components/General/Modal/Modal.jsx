@@ -8,12 +8,16 @@ import { TYPE, close } from 'src/redux/actions/modalActions'
 import BtnGeneric from 'src/components/General/BtnGeneric';
 
 const defaultProps = {
-  type: TYPE.ALERT,
-  title: 'Title',
-  message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pretium volutpat lacus ac fermentum. Mauris venenatis mollis ligula. Fusce luctus tincidunt sem a gravida. Proin tempus dui at quam accumsan elementum. Sed laoreet ligula eget tellus tincidunt, a porta metus viverra. Nullam id libero semper, commodo tortor sed, porttitor ipsum. Curabitur venenatis faucibus felis eget lacinia. Mauris eleifend id massa vitae malesuada. In vitae tortor commodo, consectetur orci vitae, tristique nisi. Vivamus condimentum ac purus sit amet lacinia. Integer vulputate vitae augue vel pharetra. Vivamus sollicitudin scelerisque augue. Proin ultricies placerat leo. Aenean aliquet elementum orci non lacinia.',
-  labelReject: 'Go back',
-  labelConfirm: 'OK',
-  confirmAction: null
+  action: {
+    type: undefined
+  },
+  modalType: undefined,
+  modalProps: {
+    title: 'Title',
+    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pretium volutpat lacus ac fermentum. Mauris venenatis mollis ligula. Fusce luctus tincidunt sem a gravida. Proin tempus dui at quam accumsan elementum. Sed laoreet ligula eget tellus tincidunt, a porta metus viverra. Nullam id libero semper, commodo tortor sed, porttitor ipsum. Curabitur venenatis faucibus felis eget lacinia. Mauris eleifend id massa vitae malesuada. In vitae tortor commodo, consectetur orci vitae, tristique nisi. Vivamus condimentum ac purus sit amet lacinia. Integer vulputate vitae augue vel pharetra. Vivamus sollicitudin scelerisque augue. Proin ultricies placerat leo. Aenean aliquet elementum orci non lacinia.',
+    labelReject: 'Go back',
+    labelConfirm: 'OK'
+  }
 };
 
 class Modal extends React.Component {
@@ -35,25 +39,25 @@ class Modal extends React.Component {
 
     let modalFooter = null;
 
-    if (!this.props.type) {
+    if (!this.props.modalType) {
       return null;
     }
 
-    switch (this.props.type) {
+    switch (this.props.modalType) {
       case TYPE.ALERT:
         modalFooter = <BtnGeneric
-          label={this.props.labelConfirm}
+          label={this.props.modalProps.labelConfirm}
           onClick={actCloseBound}
         />;
         break;
       case TYPE.CONFIRM:
         modalFooter = <div>
           <BtnGeneric
-            label={this.props.labelReject}
+            label={this.props.modalProps.labelReject}
             onClick={actCloseBound}
           />
           <BtnGeneric
-            label={this.props.labelConfirm}
+            label={this.props.modalProps.labelConfirm}
             onClick={actConfirmBound}
           />
         </div>;
@@ -64,10 +68,10 @@ class Modal extends React.Component {
       <div className="c-modal__overlay"></div>
       <div className="c-modal__window">
         <h2 className="c-modal__title">
-          {this.props.title}
+          {this.props.modalProps.title}
         </h2>
         <p className="c-modal__message">
-          {this.props.message}
+          {this.props.modalProps.message}
         </p>
         <div className="c-modal__footer">
           {modalFooter}

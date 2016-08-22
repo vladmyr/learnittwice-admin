@@ -27,8 +27,12 @@ class InputText extends React.Component {
   }
 
   onChange(event) {
+    const value = event.target.value;
+
     this.setState({
-      value: event.target.value
+      value: value
+    }, () => {
+      return this.props.stateListener(this.props.name, value)
     });
   }
 

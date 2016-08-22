@@ -3,11 +3,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { reqOne, fetchList, openManager } from 'src/redux/actions/studyInboxActions';
-import { open } from 'src/redux/actions/modalActions';
+import { MANAGER_SET_DATA,
+  reqOne,
+  fetchList,
+  openManager
+} from 'src/redux/actions/studyInboxActions';
+import { TYPE as MODAL_TYPE, open } from 'src/redux/actions/modalActions';
 
 import StudyInboxList from './StudyInboxList';
-import StudyInboxManager from './StudyInboxManager';
+import { StudyInboxManagerContainer } from './StudyInboxManager';
 
 class StudyInbox extends React.Component {
   constructor(props) {
@@ -16,7 +20,7 @@ class StudyInbox extends React.Component {
 
   componentDidMount() {
     this.props.fetchList();
-    this.props.open();
+    //this.props.open();
   }
 
   componentDidUpdate() {
@@ -24,7 +28,18 @@ class StudyInbox extends React.Component {
   }
 
   actSelectInbox(id = null) {
-    this.props.openManager(id);
+    if (id == this.props.Manager.inboxId) {
+      return;
+    } else if (this.props.Manager.hasChanges) {
+      const inboxData = {};
+
+      this.props.modalOpen({
+        type: MANAGER_SET_DATA,
+        inboxData
+      }, MODAL_TYPE.CONFIRM);
+    } else {
+      this.props.openManager(id);
+    }
   }
 
   render() {
@@ -39,10 +54,7 @@ class StudyInbox extends React.Component {
       </div>
       {this.props.Manager.isVisible
         ? <div className="l-grid__item">
-            <StudyInboxManager
-              ref="Manager"
-              {...this.props.Manager}
-            />
+            <StudyInboxManagerContainer ref="Manager" />
           </div>
         : null
       }
@@ -59,7 +71,7 @@ const mapDispatchToProps = {
   reqOne,
   fetchList,
   openManager,
-  open
+  modalOpen: open
 };
 
 const StudyInboxContainer = connect(

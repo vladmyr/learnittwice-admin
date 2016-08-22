@@ -27,6 +27,10 @@ const setList = (state, page = 0, list = []) => {
 const setSelectedInbox = (state, id = null) => {
   let indexData = {};
 
+  if (id == state.getIn(['Manager', 'inboxId'])) {
+    return state;
+  }
+
   if (id) {
     let index = state.get('listIds').indexOf(id);
 
@@ -43,12 +47,18 @@ const setSelectedInbox = (state, id = null) => {
     }))
 };
 
+const setManagerHasChanges = (state, bool) => {
+  return state.setIn(['Manager', 'hasChanges'], bool);
+};
+
 const studyInboxReducer = (state = initialState, action) => {
   switch(action.type) {
     case actions.RES_MANY:
       return setList(state, action.page, action.list);
     case actions.MANAGER_OPEN:
       return setSelectedInbox(state, action.id);
+    case actions.MANAGER_HAS_CHANGES:
+      return setManagerHasChanges(state, action.bool);
     default:
       return state;
   }
