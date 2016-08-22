@@ -1,4 +1,10 @@
 @mixin fade-in {
-  @include animation(fadein ease-in 1);
-  opacity:0;
+  animation-name:fadein;
+  animation-duration:.08s;
+  animation-timing-function:ease-in;
+  animation-iteration-count:1;
 }
+
+//@mixin fade-out($duration:1s) { animation:fadein ease-in 1;
+//  opacity:0;
+//}
