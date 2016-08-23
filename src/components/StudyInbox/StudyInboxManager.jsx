@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as _ from 'underscore';
 
 import { initialState } from 'src/redux/reducers/studyInboxReducer';
-import { setManagerHasChanges, setManagerData } from 'src/redux/actions/studyInboxActions';
+import { setManagerHasChanges, setManagerData, setManagerPropData } from 'src/redux/actions/studyInboxActions';
 
 import InputText from 'src/components/General/InputText';
 import BtnGeneric from 'src/components/General/BtnGeneric';
@@ -21,10 +21,6 @@ class StudyInboxManager extends React.Component {
     this.prevInboxData = _.omit(newProps.inboxData, 'id');
   }
 
-  shouldComponentUpdate(newProps, newState) {
-    return this.props.inboxId != newProps.inboxId;
-  }
-
   getState() {
     return this.state();
   }
@@ -33,23 +29,13 @@ class StudyInboxManager extends React.Component {
     return !_.isEqual(this.state, this.prevInboxData);
   }
 
-  stateListener(propName, value) {
-    return this.setState({
-      [propName]: value
-    }, this.shouldStateUpdate)
-  }
-
-  shouldStateUpdate() {
-    const hasChanges = this.getHasChanges();
-
-    if (this.props.hasChanges != hasChanges) {
-      this.props.setManagerHasChanges(hasChanges);
-    }
+  shouldStateUpdateListener(prop, value) {
+    this.props.setManagerPropData(prop, value);
   }
 
   render() {
     const getHasChangesBound = this.getHasChanges.bind(this);
-    const stateListenerBound = this.stateListener.bind(this);
+    const shouldStateUpdateListenerBound = this.shouldStateUpdateListener.bind(this);
 
     return <div className="study-inbox__manager">
       <h4>
@@ -63,7 +49,7 @@ class StudyInboxManager extends React.Component {
         title="Name"
         placeholder="Example Inbox"
         value={this.props.inboxData.name || ''}
-        stateListener={stateListenerBound}
+        shouldStateUpdateListener={shouldStateUpdateListenerBound}
       />
       <BtnGeneric
         onClick={getHasChangesBound}
@@ -80,7 +66,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = {
   setManagerHasChanges,
-  setManagerData
+  setManagerData,
+  setManagerPropData
 };
 
 const StudyInboxManagerContainer = connect(
