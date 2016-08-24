@@ -17,6 +17,10 @@ class StudyInboxManager extends React.Component {
     this.prevInboxData = _.omit(this.props.inboxData, 'id');
   }
 
+  shouldComponentUpdate(newProps) {
+    return this.props.inboxId != newProps.inboxId;
+  }
+
   componentWillReceiveProps(newProps) {
     this.prevInboxData = _.omit(newProps.inboxData, 'id');
   }

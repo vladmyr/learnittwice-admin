@@ -3,7 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { MANAGER_SET_DATA,
+import { MANAGER_OPEN,
   reqOne,
   fetchList,
   openManager
@@ -31,12 +31,13 @@ class StudyInbox extends React.Component {
     if (id == this.props.Manager.inboxId) {
       return;
     } else if (this.props.Manager.hasChanges) {
-      const inboxData = {};
-
       this.props.modalOpen({
-        type: MANAGER_SET_DATA,
-        inboxData
-      }, MODAL_TYPE.CONFIRM);
+        name: 'openManager',
+        args: [id]
+      }, MODAL_TYPE.CONFIRM, {
+        title: 'You have not-persisted changes',
+        message: 'Are you sure you want to continue? All not-persisted changes will be lost.'
+      });
     } else {
       this.props.openManager(id);
     }

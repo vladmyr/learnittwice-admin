@@ -4,16 +4,22 @@ import { Map, fromJS } from 'immutable';
 import * as actions from 'src/redux/actions/modalActions'
 
 const initialState = Map({
-  action: Map(),
-  modalType: undefined,
-  modalProps: undefined
+  action: Map({
+    name: undefined,
+    args: []
+  }),
+  type: undefined,
+  title: undefined,
+  message: undefined,
+  labelReject: undefined,
+  labelConfirm: undefined
 });
 
 const show = (state, action, type, props) => {
   return state
     .set('action', fromJS(action))
-    .set('modalType', type)
-    .set('modalProps', fromJS(props))
+    .set('type', type)
+    .merge(fromJS(props))
 };
 
 const modalReducer = (state = initialState, action) => {

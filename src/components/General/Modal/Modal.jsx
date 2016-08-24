@@ -3,21 +3,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { TYPE, close } from 'src/redux/actions/modalActions'
+import { TYPE, close } from 'src/redux/actions/modalActions';
+import { openManager } from 'src/redux/actions/studyInboxActions';
 
 import BtnGeneric from 'src/components/General/BtnGeneric';
 
 const defaultProps = {
   action: {
-    type: undefined
+    name: undefined,
+    args: []
   },
-  modalType: undefined,
-  modalProps: {
-    title: 'Title',
-    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pretium volutpat lacus ac fermentum. Mauris venenatis mollis ligula. Fusce luctus tincidunt sem a gravida. Proin tempus dui at quam accumsan elementum. Sed laoreet ligula eget tellus tincidunt, a porta metus viverra. Nullam id libero semper, commodo tortor sed, porttitor ipsum. Curabitur venenatis faucibus felis eget lacinia. Mauris eleifend id massa vitae malesuada. In vitae tortor commodo, consectetur orci vitae, tristique nisi. Vivamus condimentum ac purus sit amet lacinia. Integer vulputate vitae augue vel pharetra. Vivamus sollicitudin scelerisque augue. Proin ultricies placerat leo. Aenean aliquet elementum orci non lacinia.',
-    labelReject: 'Go back',
-    labelConfirm: 'OK'
-  }
+  type: undefined,
+  title: 'Title',
+  message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pretium volutpat lacus ac fermentum. Mauris venenatis mollis ligula. Fusce luctus tincidunt sem a gravida. Proin tempus dui at quam accumsan elementum. Sed laoreet ligula eget tellus tincidunt, a porta metus viverra. Nullam id libero semper, commodo tortor sed, porttitor ipsum. Curabitur venenatis faucibus felis eget lacinia. Mauris eleifend id massa vitae malesuada. In vitae tortor commodo, consectetur orci vitae, tristique nisi. Vivamus condimentum ac purus sit amet lacinia. Integer vulputate vitae augue vel pharetra. Vivamus sollicitudin scelerisque augue. Proin ultricies placerat leo. Aenean aliquet elementum orci non lacinia.',
+  labelReject: 'Go back',
+  labelConfirm: 'OK'
 };
 
 class Modal extends React.Component {
@@ -30,7 +30,12 @@ class Modal extends React.Component {
   }
 
   actConfirm() {
-    this.actClose();
+    const dispatch = this.props[this.props.action.name];
+
+    if (typeof dispatch == 'function') {
+      this.actClose();
+      dispatch.apply(dispatch, this.props.action.args);
+    }
   }
 
   render() {
@@ -39,25 +44,25 @@ class Modal extends React.Component {
 
     let modalFooter = null;
 
-    if (!this.props.modalType) {
+    if (!this.props.type) {
       return null;
     }
 
-    switch (this.props.modalType) {
+    switch (this.props.type) {
       case TYPE.ALERT:
         modalFooter = <BtnGeneric
-          label={this.props.modalProps.labelConfirm}
+          label={this.props.labelConfirm}
           onClick={actCloseBound}
         />;
         break;
       case TYPE.CONFIRM:
         modalFooter = <div>
           <BtnGeneric
-            label={this.props.modalProps.labelReject}
+            label={this.props.labelReject}
             onClick={actCloseBound}
           />
           <BtnGeneric
-            label={this.props.modalProps.labelConfirm}
+            label={this.props.labelConfirm}
             onClick={actConfirmBound}
           />
         </div>;
@@ -68,10 +73,10 @@ class Modal extends React.Component {
       <div className="c-modal__overlay"></div>
       <div className="c-modal__window">
         <h2 className="c-modal__title">
-          {this.props.modalProps.title}
+          {this.props.title}
         </h2>
         <p className="c-modal__message">
-          {this.props.modalProps.message}
+          {this.props.message}
         </p>
         <div className="c-modal__footer">
           {modalFooter}
@@ -87,7 +92,10 @@ const mapStateToProps = (state, ownProps) => {
   return state.get('Modal').toJS();
 };
 
-const mapDispatchToProps = { close };
+const mapDispatchToProps = {
+  close,
+  openManager
+};
 
 const ModalContainer = connect(
   mapStateToProps,
