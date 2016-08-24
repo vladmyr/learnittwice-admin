@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import * as _ from 'underscore';
 
 import { initialState } from 'src/redux/reducers/studyInboxReducer';
-import { setManagerHasChanges, setManagerData, setManagerPropData } from 'src/redux/actions/studyInboxActions';
+import { openManager, resetManagerData, setManagerPropData } from 'src/redux/actions/studyInboxActions';
+import { TYPE, open as openModal } from 'src/redux/actions/modalActions';
 
 import InputText from 'src/components/General/InputText';
 import BtnGeneric from 'src/components/General/BtnGeneric';
@@ -13,33 +14,29 @@ import BtnGeneric from 'src/components/General/BtnGeneric';
 class StudyInboxManager extends React.Component {
   constructor(props) {
     super(props);
-
-    this.prevInboxData = _.omit(this.props.inboxData, 'id');
-  }
-
-  shouldComponentUpdate(newProps) {
-    return this.props.inboxId != newProps.inboxId;
-  }
-
-  componentWillReceiveProps(newProps) {
-    this.prevInboxData = _.omit(newProps.inboxData, 'id');
-  }
-
-  getState() {
-    return this.state();
-  }
-
-  getHasChanges() {
-    return !_.isEqual(this.state, this.prevInboxData);
   }
 
   shouldStateUpdateListener(prop, value) {
     this.props.setManagerPropData(prop, value);
   }
 
+  reset() {
+    if (!this.props.hasChanges) {
+      return;
+    }
+
+    this.props.openModal({
+      name: 'resetManagerData',
+      args: [this.props.inboxId]
+    }, TYPE.CONFIRM, {
+      title: 'You have not-persisted changes',
+      message: 'Are you sure you want to continue? All not-persisted changes will be lost.'
+    });
+  }
+
   render() {
-    const getHasChangesBound = this.getHasChanges.bind(this);
     const shouldStateUpdateListenerBound = this.shouldStateUpdateListener.bind(this);
+    const resetBound = this.reset.bind(this);
 
     return <div className="study-inbox__manager">
       <h4>
@@ -56,7 +53,8 @@ class StudyInboxManager extends React.Component {
         shouldStateUpdateListener={shouldStateUpdateListenerBound}
       />
       <BtnGeneric
-        onClick={getHasChangesBound}
+        label="Reset"
+        onClick={resetBound}
       />
     </div>
   }
@@ -69,8 +67,9 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = {
-  setManagerHasChanges,
-  setManagerData,
+  openModal,
+  openManager,
+  resetManagerData,
   setManagerPropData
 };
 

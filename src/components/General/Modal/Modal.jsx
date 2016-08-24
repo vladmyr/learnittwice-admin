@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { TYPE, close } from 'src/redux/actions/modalActions';
-import { openManager } from 'src/redux/actions/studyInboxActions';
+import { openManager, resetManagerData } from 'src/redux/actions/studyInboxActions';
 
 import BtnGeneric from 'src/components/General/BtnGeneric';
 
@@ -94,7 +94,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = {
   close,
-  openManager
+  openManager,
+  resetManagerData
 };
 
 const ModalContainer = connect(

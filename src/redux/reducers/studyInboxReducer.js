@@ -61,6 +61,17 @@ const setSelectedInbox = (state, id) => {
     }))
 };
 
+const resetManagerData = (state, id) => {
+  if (!state.getIn(['Manager', 'hasChanges'])) {
+    return state
+  }
+
+  return state
+    .setIn(['Manager', 'hasChanges'], false)
+    .setIn(['Manager', 'inboxData'], _getInboxById(state, id));
+
+};
+
 const setManagerPropData = (state, prop, value) => {
   const inbox = _getInboxById(state, state.getIn(['Manager', 'inboxId']));
   const hasChanges = (inbox.get(prop) != value);
@@ -75,6 +86,8 @@ const studyInboxReducer = (state = initialState, action) => {
       return setList(state, action.page, action.list);
     case actions.MANAGER_OPEN:
       return setSelectedInbox(state, action.id);
+    case actions.MANAGER_RESET_DATA:
+      return resetManagerData(state, action.id);
     case actions.MANAGER_SET_PROP_DATA:
       return setManagerPropData(state, action.prop, action.value);
     default:

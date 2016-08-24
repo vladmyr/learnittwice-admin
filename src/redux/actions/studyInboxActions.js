@@ -20,7 +20,9 @@ export const MANAGER_OPEN = 'STUDY_INBOX_MANAGER_OPEN';
 export const MANAGER_CLOSE = 'STUDY_INBOX_MANAGER_CLOSE';
 export const MANAGER_HAS_CHANGES = 'STUDY_INBOX_MANAGER_HAS_CHANGES';
 export const MANAGER_SET_DATA = 'STUDY_INBOX_MANAGER_SET_DATA';
+export const MANAGER_RESET_DATA = 'STUDY_INBOX_MANAGER_RESET_DATA';
 export const MANAGER_SET_PROP_DATA = 'STUDY_INBOX_MANAGER_SET_PROP_DATA';
+
 
 
 
@@ -84,9 +86,9 @@ export const setManagerHasChanges = (bool = false) => ({
   bool: bool
 });
 
-export const setManagerData = (inboxData = {}) => ({
-  type: MANAGER_SET_DATA,
-  inboxData: inboxData
+export const resetManagerData = (id = null) => ({
+  type: MANAGER_RESET_DATA,
+  id: id
 });
 
 export const setManagerPropData = (prop, value) => ({
