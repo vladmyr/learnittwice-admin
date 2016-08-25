@@ -6,6 +6,7 @@ import * as actions from 'src/redux/actions/studyInboxActions';
 
 const initialState = Map({
   Manager: Map({
+    isNetProcessing: false,
     isVisible: false,
     hasChanges: false,
     inboxId: null,
@@ -24,6 +25,7 @@ const initialState = Map({
  * @returns {Immutable.Map}
  * @private
  */
+
 const _getInboxById = (state, id) => {
   let inbox = Map();
 
@@ -36,6 +38,11 @@ const _getInboxById = (state, id) => {
   }
 
   return inbox;
+};
+
+const setIsNetProcessing = (state, bool = false) => {
+  return state
+    .setIn(['Manager', 'isNetProcessing'], bool);
 };
 
 const setList = (state, page = 0, list = []) => {
@@ -80,10 +87,19 @@ const setManagerPropData = (state, prop, value) => {
     .setIn(['Manager', 'hasChanges'], hasChanges);
 };
 
+const resUpsert = (state, data) => {
+  return state;
+};
+
 const studyInboxReducer = (state = initialState, action) => {
   switch(action.type) {
     case actions.RES_MANY:
       return setList(state, action.page, action.list);
+    case actions.REQ_UPSERT:
+    case actions.REQ_DELETE:
+      return setIsNetProcessing(state, true);
+    case actions.RES_UPSERT:
+      return setIsNetProcessing(resUpsert(state, action.data), false);
     case actions.MANAGER_OPEN:
       return setSelectedInbox(state, action.id);
     case actions.MANAGER_RESET_DATA:

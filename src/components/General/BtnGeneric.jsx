@@ -1,32 +1,28 @@
 'use strict';
 
 import React from 'react';
+import * as _ from 'underscore';
 
 const defaultProps = {
   className: 'button',
   label: 'label',
-  onClick() {}
-};
-
-const defaultState = {
-  isDisabled: false
+  isDisabled: false,
+  onClick: Function.prototype
 };
 
 class BtnGeneric extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = defaultState;
   }
 
   render() {
-    return <a
+    return <button
       className={this.props.className}
-      disabled={this.state.isDisabled}
+      disabled={this.props.isDisabled}
       onClick={this.props.onClick}
     >
       {this.props.children ? this.props.children : this.props.label }
-    </a>
+    </button>
   }
 }
 

@@ -10,10 +10,8 @@ export const REQ_MANY = 'STUDY_INBOX_REQ_MANY';
 export const RES_MANY = 'STUDY_INBOX_RES_MANY';
 export const REQ_ONE = 'STUDY_INBOX_REQ_ONE';
 export const RES_ONE = 'STUDY_INBOX_RES_ONE';
-export const REQ_CREATE = 'STUDY_INBOX_REQ_CREATE';
-export const RES_CREATE = 'STUDY_INBOX_RES_CREATE';
-export const REQ_UPDATE = 'STUDY_INBOX_REQ_UPDATE';
-export const RES_UPDATE = 'STUDY_INBOX_RES_UPDATE';
+export const REQ_UPSERT = 'STUDY_INBOX_REQ_UPSERT';
+export const RES_UPSERT = 'STUDY_INBOX_RES_UPSERT';
 export const REQ_DELETE = 'STUDY_INBOX_REQ_DELETE';
 export const RES_DELETE = 'STUDY_INBOX_RES_DELETE';
 export const MANAGER_OPEN = 'STUDY_INBOX_MANAGER_OPEN';
@@ -48,23 +46,13 @@ export const resOne = () => ({
   type: RES_ONE
 });
 
-export const reqCreate = (data) => ({
-  type: REQ_CREATE,
+export const reqUpsert = () => ({
+  type: REQ_UPSERT
+});
+
+export const resUpsert = (data) => ({
+  type: RES_UPSERT,
   data: data
-});
-
-export const resCreate = () => ({
-  type: RES_CREATE
-});
-
-export const reqUpdate = (id, data) => ({
-  type: REQ_UPDATE,
-  id: id,
-  data: data
-});
-
-export const resUpdate = () => ({
-  type: RES_UPDATE
 });
 
 export const reqDelete = (id) => ({
@@ -98,23 +86,42 @@ export const setManagerPropData = (prop, value) => ({
 });
 
 
+
 /** THUNK ACTION CREATORS */
 
 export const fetchList = (page = 0) => {
   return (dispatch, getState) => {
-    let studyInboxCollection = new StudyInboxCollection();
+    const studyInboxCollection = new StudyInboxCollection();
 
     dispatch(reqMany(page));
 
     return studyInboxCollection
       .fetch({ data: { page: page } })
       .then((result) => {
-        dispatch(resMany(page, result.obj.toJSON()));
-        return;
+        return dispatch(resMany(page, result.obj.toJSON()));
       })
       .catch((e) => {
         // TODO: implement error handling
         console.error(e);
       });
+  }
+};
+
+export const save = () => {
+  return (dispatch, getState) => {
+    const state = getState();
+    const studyInbox = new StudyInbox(state.getIn(['StudyInbox', 'Manager', 'inboxData']))
+
+    dispatch(reqUpsert());
+
+    return studyInbox
+      .save()
+      .then((result) => {
+        return dispatch(resUpsert(result));
+      })
+      .catch((e) => {
+        // TODO: implement error handling
+        console.log(e)
+      })
   }
 };

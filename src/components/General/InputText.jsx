@@ -43,7 +43,7 @@ class InputText extends React.Component {
     const value = event.target.value;
 
     if (this.props.shouldStateUpdateListener && this.props.value != value) {
-      this.props.shouldStateUpdateListener(this.props.name, event.target.value);
+      this.props.shouldStateUpdateListener(this.props.name, value);
     }
   }
 
