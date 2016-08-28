@@ -88,7 +88,16 @@ const setManagerPropData = (state, prop, value) => {
 };
 
 const resUpsert = (state, data) => {
-  return state;
+  const index = state.get('listIds').indexOf(data.id);
+  const inbox = fromJS(data);
+
+  if (index == -1) {
+    return state
+  }
+
+  return state
+    .mergeIn(['list', index], inbox)
+    .mergeIn(['Manager', 'inboxData'], inbox)
 };
 
 const studyInboxReducer = (state = initialState, action) => {

@@ -110,18 +110,18 @@ export const fetchList = (page = 0) => {
 export const save = () => {
   return (dispatch, getState) => {
     const state = getState();
-    const studyInbox = new StudyInbox(state.getIn(['StudyInbox', 'Manager', 'inboxData']))
+    const studyInbox = new StudyInbox(state.getIn(['StudyInbox', 'Manager', 'inboxData']).toJS());
 
     dispatch(reqUpsert());
 
     return studyInbox
       .save()
       .then((result) => {
-        return dispatch(resUpsert(result));
+        return dispatch(resUpsert(result.obj.toJSON()));
       })
       .catch((e) => {
         // TODO: implement error handling
-        console.log(e)
+        console.error(e)
       })
   }
 };

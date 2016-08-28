@@ -1,7 +1,7 @@
 'use strict';
 
-import {Promise} from 'bluebird';
-import {Util} from 'src/helpers/util/index';
+import { Promise } from 'bluebird';
+import Util from 'src/helpers/util/index';
 import * as _ from 'underscore';
 import * as url from 'url';
 import * as config from 'src/config.json';
@@ -15,8 +15,13 @@ class UtilModel {
   static promisify (Model) {
     const proto = Model.prototype;
     const extend = {
+      getIsNew() {
+        return !this.hasOwnProperty(this.idAttribute);
+      },
+
       fetch(options = {}) {
         const self = this;
+
         return new Promise((fulfill, reject) => {
           options.success = Util.Backbone.mapArgsHandler(fulfill);
           options.error = Util.Backbone.mapArgsHandler(reject);
@@ -25,19 +30,24 @@ class UtilModel {
       },
 
       save(attrs = {}, options = {}) {
+        const self = this;
+
         return new Promise((fulfill, reject) => {
+          // use PUT to create and POST to update
+          options.type = self.getIsNew() ? 'PUT' : 'POST';
           options.success = Util.Backbone.mapArgsHandler(fulfill);
           options.error = Util.Backbone.mapArgsHandler(reject);
-          return proto.save.call(proto, attrs, options);
+          return proto.save.call(self, attrs, options);
         });
       },
 
       destroy(options = {}) {
         const self = this;
+
         return new Promise((fulfill, reject) => {
           options.success = Util.Backbone.mapArgsHandler(fulfill);
           options.error = Util.Backbone.mapArgsHandler(reject);
-          return proto.destroy.call(proto, options)
+          return proto.destroy.call(self, options)
         })
       }
     };
