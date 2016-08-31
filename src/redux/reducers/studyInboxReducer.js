@@ -89,14 +89,24 @@ const setManagerPropData = (state, prop, value) => {
 
 const resUpsert = (state, data) => {
   const index = state.get('listIds').indexOf(data.id);
+  const inboxId = data.id;
   const inbox = fromJS(data);
 
+  let newState = state;
+
   if (index == -1) {
-    return state
+    // inbox was created
+    newState = state
+      .update('listIds', listIds => listIds.push(inboxId))
+      .update('list', list => list.push(inbox))
+      .setIn(['Manager', 'inboxId'], inboxId)
+  } else {
+    // inbox was updated
+    newState = state.mergeIn(['list', index], inbox)
   }
 
-  return state
-    .mergeIn(['list', index], inbox)
+  return newState
+    .setIn(['Manager', 'hasChanges'], false)
     .mergeIn(['Manager', 'inboxData'], inbox)
 };
 
