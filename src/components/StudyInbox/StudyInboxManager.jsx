@@ -6,7 +6,11 @@ import { Map } from 'immutable';
 import * as _ from 'underscore';
 
 import { initialState } from 'src/redux/reducers/studyInboxReducer';
-import { save, openManager, resetManagerData, setManagerPropData } from 'src/redux/actions/studyInboxActions';
+import { save,
+  remove,
+  openManager,
+  resetManagerData,
+  setManagerPropData } from 'src/redux/actions/studyInboxActions';
 import { TYPE, open as openModal } from 'src/redux/actions/modalActions';
 
 import InputText from 'src/components/General/InputText';
@@ -60,30 +64,42 @@ class StudyInboxManager extends React.Component {
     const shouldLocalStateUpdateListenerBound = this.shouldLocalStateUpdateListener.bind(this);
     const resetBound = this.reset.bind(this);
     const saveBound = this.props.save.bind(this);
+    const removeBound = this.props.remove.bind(this);
 
     return <div className="study-inbox__manager">
-      <h4>
-        {this.props.inboxId
-          ? this.props.prevInboxData.name
-          : 'New inbox'
-        }
-      </h4>
+      <div className="l-grid-flex">
+        <h4 className="l-grid-flex__item l-grid-flex__item--shrink">
+          {this.props.inboxId
+            ? this.props.prevInboxData.name
+            : 'New inbox'
+          }
+        </h4>
+        <div className="l-grid-flex__item l-grid-flex__item--pull-right">
+          <BtnGeneric
+            className="cycle-button"
+            label="D"
+            onClick={removeBound}
+          />
+          <BtnGeneric
+            className="cycle-button"
+            label="R"
+            isDisabled={!this.props.hasChanges}
+            onClick={resetBound}
+          />
+          <BtnGeneric
+            className="cycle-button"
+            label="S"
+            isDisabled={!this.props.hasChanges}
+            onClick={saveBound}
+          />
+        </div>
+      </div>
       <InputText
         ref="name"
         title="Name"
         placeholder="Example Inbox"
         value={this.props.inboxData.name || ''}
         stateChangeListener={shouldStateUpdateListenerBound}
-      />
-      <BtnGeneric
-        label="Reset"
-        isDisabled={!this.props.hasChanges}
-        onClick={resetBound}
-      />
-      <BtnGeneric
-        label="Save"
-        isDisabled={!this.props.hasChanges}
-        onClick={saveBound}
       />
     </div>
   }
@@ -110,6 +126,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = {
   save,
+  remove,
   openModal,
   openManager,
   resetManagerData,

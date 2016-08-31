@@ -125,3 +125,9 @@ export const save = () => {
       })
   }
 };
+
+export const remove = () => {
+  return (dispatch, getState) => {
+    return
+  }
+};

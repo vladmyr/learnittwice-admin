@@ -1,5 +1,5 @@
 .l-grid-flex { display:flex;
   .l-grid-flex__item {}
   .l-grid-flex__item--shrink { flex-shrink:2; }
+  .l-grid-flex__item--pull-right { margin-left:auto; }
 }
-.l-grid-flex--space-between { justify-content:space-between; }

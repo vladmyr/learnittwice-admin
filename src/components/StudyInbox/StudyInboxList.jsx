@@ -9,15 +9,15 @@ import BtnGeneric from 'src/components/General/BtnGeneric'
 class StudyInboxList extends React.Component {
   render() {
     return <div className="c-study-inbox">
-      <div className="c-study-inbox__header l-grid-flex l-grid-flex--space-between">
+      <div className="l-grid-flex">
         <h4
           className="c-study-inbox__title l-grid-flex__item l-grid-flex__item--shrink"
         >
           Study inboxes
         </h4>
         <BtnGeneric
-          className="button l-grid-flex__item"
-          label="Add"
+          className="cycle-button l-grid-flex__item l-grid-flex__item--pull-right"
+          label="A"
           onClick={this.props.actCreateInbox}
         />
       </div>
