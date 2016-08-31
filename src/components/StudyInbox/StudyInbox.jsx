@@ -28,9 +28,11 @@ class StudyInbox extends React.Component {
   }
 
   actSelectInbox(id = null) {
-    if (id == this.props.Manager.inboxId) {
+    if (id && id == this.props.Manager.inboxId) {
+      // active inbox was selected - do nothing
       return;
     } else if (this.props.Manager.hasChanges) {
+      // another inbox was selected before persisting changes - display dialog modal
       this.props.modalOpen({
         name: 'openManager',
         args: [id]
@@ -39,16 +41,23 @@ class StudyInbox extends React.Component {
         message: 'Are you sure you want to continue? All not-persisted changes will be lost.'
       });
     } else {
+      // switch to specified inbox
       this.props.openManager(id);
     }
   }
 
+  actCreateInbox() {
+    return this.actSelectInbox();
+  }
+
   render() {
+    const actCreateInboxBound = this.actCreateInbox.bind(this);
     const actSelectInboxBound = this.actSelectInbox.bind(this);
 
     return <div className="l-grid l-grid--doublet">
       <div className="l-grid__item">
         <StudyInboxList
+          actCreateInbox={actCreateInboxBound}
           actSelectInbox={actSelectInboxBound}
           {...this.props}
         />

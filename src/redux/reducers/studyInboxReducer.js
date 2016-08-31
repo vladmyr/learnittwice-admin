@@ -54,7 +54,7 @@ const setList = (state, page = 0, list = []) => {
 
 const setSelectedInbox = (state, id) => {
   // prevent selecting already selected inbox
-  if (id == state.getIn(['Manager', 'inboxId'])) {
+  if (id && id == state.getIn(['Manager', 'inboxId'])) {
     return state;
   }
 
