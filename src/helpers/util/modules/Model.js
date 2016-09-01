@@ -45,6 +45,8 @@ class UtilModel {
         const self = this;
 
         return new Promise((fulfill, reject) => {
+          options.contentType = false;
+          options.processData = false;
           options.success = Util.Backbone.mapArgsHandler(fulfill);
           options.error = Util.Backbone.mapArgsHandler(reject);
           return proto.destroy.call(self, options)

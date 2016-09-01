@@ -7,7 +7,7 @@ import * as _ from 'underscore';
 
 import { initialState } from 'src/redux/reducers/studyInboxReducer';
 import { save,
-  remove,
+  destroy,
   openManager,
   resetManagerData,
   setManagerPropData } from 'src/redux/actions/studyInboxActions';
@@ -64,7 +64,7 @@ class StudyInboxManager extends React.Component {
     const shouldLocalStateUpdateListenerBound = this.shouldLocalStateUpdateListener.bind(this);
     const resetBound = this.reset.bind(this);
     const saveBound = this.props.save.bind(this);
-    const removeBound = this.props.remove.bind(this);
+    const destroyBound = this.props.destroy.bind(this);
 
     return <div className="study-inbox__manager">
       <div className="l-grid-flex">
@@ -75,11 +75,14 @@ class StudyInboxManager extends React.Component {
           }
         </h4>
         <div className="l-grid-flex__item l-grid-flex__item--pull-right">
-          <BtnGeneric
-            className="cycle-button"
-            label="D"
-            onClick={removeBound}
-          />
+          {!this.props.inboxId
+            ? null
+            : <BtnGeneric
+                className="cycle-button"
+                label="D"
+                onClick={destroyBound}
+              />
+          }
           <BtnGeneric
             className="cycle-button"
             label="R"
@@ -126,7 +129,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = {
   save,
-  remove,
+  destroy,
   openModal,
   openManager,
   resetManagerData,

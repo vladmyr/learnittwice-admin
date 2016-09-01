@@ -12,8 +12,8 @@ export const REQ_ONE = 'STUDY_INBOX_REQ_ONE';
 export const RES_ONE = 'STUDY_INBOX_RES_ONE';
 export const REQ_UPSERT = 'STUDY_INBOX_REQ_UPSERT';
 export const RES_UPSERT = 'STUDY_INBOX_RES_UPSERT';
-export const REQ_DELETE = 'STUDY_INBOX_REQ_DELETE';
-export const RES_DELETE = 'STUDY_INBOX_RES_DELETE';
+export const REQ_DESTROY = 'STUDY_INBOX_REQ_DESTROY';
+export const RES_DESTROY = 'STUDY_INBOX_RES_DESTROY';
 export const MANAGER_OPEN = 'STUDY_INBOX_MANAGER_OPEN';
 export const MANAGER_CLOSE = 'STUDY_INBOX_MANAGER_CLOSE';
 export const MANAGER_HAS_CHANGES = 'STUDY_INBOX_MANAGER_HAS_CHANGES';
@@ -55,13 +55,13 @@ export const resUpsert = (data) => ({
   data: data
 });
 
-export const reqDelete = (id) => ({
-  type: REQ_DELETE,
+export const reqDestroy = (id) => ({
+  type: REQ_DESTROY,
   id: id
 });
 
-export const resDelete = () => ({
-  type: RES_DELETE
+export const resDestroy = () => ({
+  type: REQ_DESTROY
 });
 
 export const openManager = (id = null) => ({
@@ -126,8 +126,24 @@ export const save = () => {
   }
 };
 
-export const remove = () => {
+export const destroy = () => {
   return (dispatch, getState) => {
-    return
+    const state = getState();
+    const inboxId = state.getIn(['StudyInbox', 'Manager', 'inboxId']);
+    const studyInbox = new StudyInbox({ id: inboxId });
+
+    if (!inboxId) {
+      return
+    }
+
+    return studyInbox
+      .destroy()
+      .then((result) => {
+        return dispatch(resDestroy(result))
+      })
+      .catch((e) => {
+        // TODO: implement error handling
+        console.error(e);
+      })
   }
 };

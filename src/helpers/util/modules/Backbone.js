@@ -8,7 +8,7 @@ class UtilBackbone {
    */
   static mapArgsHandler (resolve) {
     return (obj, response, options) => {
-      if (response.statusText == 'error') {
+      if (options.xhr.statusText == 'error') {
         return resolve(new Error(response.statusText));
       } else {
         return resolve({ obj, response, options })
