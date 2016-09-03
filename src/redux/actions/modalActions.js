@@ -9,6 +9,15 @@ export const TYPE = {
   CONFIRM: 'CONFIRM'
 };
 
+// modal's window class modifier
+export const WINDOW_CLASS_MODIFIER = {
+  WARNING: 'WARNING'
+};
+
+
+
+/** ACTION CREATORS */
+
 export const open = (confirmAction = {}, modalType = TYPE.ALERT, modalProps) => {
   return {
     type: OPEN,

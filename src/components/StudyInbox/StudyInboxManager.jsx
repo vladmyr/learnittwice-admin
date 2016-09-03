@@ -11,7 +11,10 @@ import { save,
   openManager,
   resetManagerData,
   setManagerPropData } from 'src/redux/actions/studyInboxActions';
-import { TYPE, open as openModal } from 'src/redux/actions/modalActions';
+import { TYPE as MODAL_TYPE,
+  WINDOW_CLASS_MODIFIER as MODAL_WINDOW_CLASS_MODIFIER,
+  open as openModal
+} from 'src/redux/actions/modalActions';
 
 import InputText from 'src/components/General/InputText';
 import BtnGeneric from 'src/components/General/BtnGeneric';
@@ -53,18 +56,28 @@ class StudyInboxManager extends React.Component {
     this.props.openModal({
       name: 'resetManagerData',
       args: [this.props.inboxId]
-    }, TYPE.CONFIRM, {
+    }, MODAL_TYPE.CONFIRM, {
       title: 'You have not-persisted changes',
       message: 'Are you sure you want to continue? All not-persisted changes will be lost.'
     });
   }
 
+  destroy() {
+    this.props.openModal({
+      name: 'destroyStudyInbox',
+      args: [this.props.inboxId]
+    }, MODAL_TYPE.CONFIRM, {
+      classNameModifier: MODAL_WINDOW_CLASS_MODIFIER.WARNING,
+      title: `Delete inbox "${this.props.prevInboxData.name}"?`,
+      message: `Are you sure you want to delete inbox "${this.props.prevInboxData.name}"? This will also delete all nested data.`
+    })
+  }
+
   render() {
     const shouldStateUpdateListenerBound = this.shouldStateUpdateListener.bind(this);
-    const shouldLocalStateUpdateListenerBound = this.shouldLocalStateUpdateListener.bind(this);
     const resetBound = this.reset.bind(this);
     const saveBound = this.props.save.bind(this);
-    const destroyBound = this.props.destroy.bind(this);
+    const destroyBound = this.destroy.bind(this);
 
     return <div className="study-inbox__manager">
       <div className="l-grid-flex">
@@ -129,7 +142,6 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = {
   save,
-  destroy,
   openModal,
   openManager,
   resetManagerData,

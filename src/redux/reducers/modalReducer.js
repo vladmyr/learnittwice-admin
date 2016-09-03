@@ -15,7 +15,7 @@ const initialState = Map({
   labelConfirm: undefined
 });
 
-const show = (state, action, type, props) => {
+const open = (state, action, type, props) => {
   return state
     .set('action', fromJS(action))
     .set('type', type)
@@ -25,7 +25,7 @@ const show = (state, action, type, props) => {
 const modalReducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.OPEN:
-      return show(state, action.modalConfirmAction, action.modalType, action.modalProps);
+      return open(state, action.modalConfirmAction, action.modalType, action.modalProps);
     case actions.CLOSE:
       return initialState;
     default:

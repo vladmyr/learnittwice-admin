@@ -110,6 +110,22 @@ const resUpsert = (state, data) => {
     .mergeIn(['Manager', 'inboxData'], inbox)
 };
 
+const resDestroy = (state, id) => {
+  const index = state.get('listIds').indexOf(id);
+
+  if (index == -1) {
+    return state;
+  }
+
+  return state
+    .update('listIds', listIds => listIds.splice(index, 1))
+    .update('list', list => list.splice(index, 1));
+};
+
+const closeManager = (state) => {
+  return state.set('Manager', initialState.get('Manager'));
+};
+
 const studyInboxReducer = (state = initialState, action) => {
   switch(action.type) {
     case actions.RES_MANY:
@@ -119,6 +135,8 @@ const studyInboxReducer = (state = initialState, action) => {
       return setIsNetProcessing(state, true);
     case actions.RES_UPSERT:
       return setIsNetProcessing(resUpsert(state, action.data), false);
+    case actions.RES_DESTROY:
+      return resDestroy(closeManager(state), action.id);
     case actions.MANAGER_OPEN:
       return setSelectedInbox(state, action.id);
     case actions.MANAGER_RESET_DATA:

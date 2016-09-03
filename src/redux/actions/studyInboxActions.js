@@ -60,13 +60,18 @@ export const reqDestroy = (id) => ({
   id: id
 });
 
-export const resDestroy = () => ({
-  type: REQ_DESTROY
+export const resDestroy = (id) => ({
+  type: RES_DESTROY,
+  id: id
 });
 
-export const openManager = (id = null) => ({
+export const openManager = (id) => ({
   type: MANAGER_OPEN,
   id: id
+});
+
+export const closeManager = () => ({
+  type: MANAGER_CLOSE
 });
 
 export const setManagerHasChanges = (bool = false) => ({
@@ -74,7 +79,7 @@ export const setManagerHasChanges = (bool = false) => ({
   bool: bool
 });
 
-export const resetManagerData = (id = null) => ({
+export const resetManagerData = (id) => ({
   type: MANAGER_RESET_DATA,
   id: id
 });
@@ -136,10 +141,12 @@ export const destroy = () => {
       return
     }
 
+    dispatch(reqDestroy(inboxId));
+
     return studyInbox
       .destroy()
       .then((result) => {
-        return dispatch(resDestroy(result))
+        return dispatch(resDestroy(result.obj.id))
       })
       .catch((e) => {
         // TODO: implement error handling

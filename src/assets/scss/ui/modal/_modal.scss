@@ -18,6 +18,7 @@
   padding:$s-modal-window-padding;
   background-color:$c-modal-window-background-color;
 }
+.c-modal__window--warning { background-color:$c-modal-window-background-color-warning; }
 
 .c-modal__title,
 .c-modal__message { color:$c-modal-window; }
