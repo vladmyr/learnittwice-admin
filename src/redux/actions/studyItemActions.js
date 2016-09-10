@@ -3,6 +3,7 @@
 //import StudyItemCollection from './src/backbone/collections/StudyItemCollection';
 
 /** ACTION TYPES */
+export const SET_LIST = 'STUDY_ITEM_SET_LIST';
 export const REQ_MANY = 'STUDY_ITEM_REQ_MANY';
 export const RES_MANY = 'STUDY_ITEM_RES_MANY';
 export const REQ_ONE = 'STUDY_ITEM_REQ_ONE';
@@ -11,6 +12,12 @@ export const RES_ONE = 'STUDY_ITEM_RES_ONE';
 
 
 /** ACTION CREATORS */
+export const setList = (page = 0, list =[]) => ({
+  type: SET_LIST,
+  page: page,
+  list: list
+});
+
 export const reqMany = (page = 0) => ({
   type: REQ_MANY,
   page: page

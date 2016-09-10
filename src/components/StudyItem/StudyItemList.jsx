@@ -33,7 +33,7 @@ class StudyItemList extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return null;
+  return state.get('StudyItem').toJS();
 };
 
 const mapDispatchToProps = {};

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { MANAGER_OPEN,
   reqOne,
   fetchList,
-  openManager
+  fetchOpenManager
 } from 'src/redux/actions/studyInboxActions';
 import { TYPE as MODAL_TYPE, open } from 'src/redux/actions/modalActions';
 
@@ -42,7 +42,7 @@ class StudyInbox extends React.Component {
       });
     } else {
       // switch to specified inbox
-      this.props.openManager(id);
+      this.props.fetchOpenManager(id);
     }
   }
 
@@ -80,7 +80,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = {
   reqOne,
   fetchList,
-  openManager,
+  fetchOpenManager,
   modalOpen: open
 };
 

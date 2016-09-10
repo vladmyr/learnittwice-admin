@@ -6,6 +6,8 @@ import * as _ from 'underscore';
 import StudyInboxCollection from 'src/backbone/collections/StudyInboxCollection';
 import StudyInbox from 'src/backbone/models/StudyInbox';
 
+import * as studyItemActions from './studyItemActions';
+
 export const REQ_MANY = 'STUDY_INBOX_REQ_MANY';
 export const RES_MANY = 'STUDY_INBOX_RES_MANY';
 export const REQ_ONE = 'STUDY_INBOX_REQ_ONE';
@@ -42,8 +44,9 @@ export const reqOne = (id) => ({
   id: id
 });
 
-export const resOne = () => ({
-  type: RES_ONE
+export const resOne = (data) => ({
+  type: RES_ONE,
+  data: data
 });
 
 export const reqUpsert = () => ({
@@ -112,6 +115,35 @@ export const fetchList = (page = 0) => {
   }
 };
 
+export const fetch = (id) => {
+  return (dispatch) => {
+    const studyInbox = new StudyInbox({ id: id });
+
+    dispatch(reqOne(id));
+
+    return studyInbox
+      .fetch()
+      .then((result) => {
+        const inbox = result.obj.toJSON();
+
+        dispatch(resOne(_.omit(inbox, 'items')));
+        dispatch(studyItemActions.setList(0, inbox.items))
+      })
+      .catch((e) => {
+        // ToDo: implement error handling
+        console.error(e);
+      })
+  }
+};
+
+export const fetchOpenManager = (id) => {
+  return (dispatch) => {
+    dispatch(openManager(id));
+    dispatch(fetch(id));
+    return;
+  }
+};
+
 export const save = () => {
   return (dispatch, getState) => {
     const state = getState();
@@ -125,7 +157,7 @@ export const save = () => {
         return dispatch(resUpsert(result.obj.toJSON()));
       })
       .catch((e) => {
-        // TODO: implement error handling
+        // ToDo: implement error handling
         console.error(e)
       })
   }
@@ -149,8 +181,8 @@ export const destroy = () => {
         return dispatch(resDestroy(result.obj.id))
       })
       .catch((e) => {
-        // TODO: implement error handling
+        // ToDo: implement error handling
         console.error(e);
-      })
+      });
   }
 };

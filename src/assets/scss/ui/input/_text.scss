@@ -15,6 +15,9 @@ input[type='text'] { display:inline-block; position:relative;
  */
 
 .c-input__text {
-  .c-input__header { margin-bottom:0; }
+  .c-input__header { display:block; margin-bottom:0; font-weight:600; }
+  // ToDo: should be removed after removing metroui theme
+  .c-input__header,
+  .c-input__header:hover { cursor:default; }
   .c-input__field {}
 }

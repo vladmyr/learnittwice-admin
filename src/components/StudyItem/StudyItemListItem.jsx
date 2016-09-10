@@ -6,9 +6,9 @@ class StudyItemListItem extends React.Component {
   render() {
     return <li
       className="study-item__list-item"
-      onClick={() => this.props.actSelectItem(this.props.id)}
+      onClick={() => {}}
     >
-      <a>{this.props.name}</a>
+      <a>{this.props.slug}</a>
     </li>
   }
 }

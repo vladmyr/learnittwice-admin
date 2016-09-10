@@ -69,7 +69,7 @@ class UtilModel {
 
 
   /**
-   * Set resource endpoint
+   * Set resource url endpoint
    * @param   {Object}  descriptor
    * @param   {String}  name
    * @returns {Object}
@@ -79,12 +79,12 @@ class UtilModel {
       protocol: config.api.protocol,
       hostname: config.api.host,
       port: config.api.port,
-      pathname: _.has(config.models, name, "pathname")
-        ? config.models[name].pathname
-        : ""
+      pathname: config.models[name].pathname
     });
 
-    return _.extend(descriptor, {urlRoot: urlRoot});
+    return _.extend(descriptor, {
+      urlRoot: urlRoot
+    });
   }
 }
 

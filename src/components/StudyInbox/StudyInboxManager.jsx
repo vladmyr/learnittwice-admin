@@ -18,6 +18,7 @@ import { TYPE as MODAL_TYPE,
 
 import InputText from 'src/components/General/InputText';
 import BtnGeneric from 'src/components/General/BtnGeneric';
+import { StudyItemListContainer } from 'src/components/StudyItem/StudyItemList';
 
 const defaultProps = {
   isNetProcessing: false,
@@ -117,6 +118,14 @@ class StudyInboxManager extends React.Component {
         value={this.props.inboxData.name || ''}
         stateChangeListener={shouldStateUpdateListenerBound}
       />
+      <div className="study-item__list">
+        {!this.props.inboxData.itemsLength
+          ? <span class="study-item__empty">
+            There are no items added yet
+          </span>
+          : <StudyItemListContainer />
+        }
+      </div>
     </div>
   }
 }

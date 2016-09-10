@@ -10,7 +10,7 @@ const initialState = Map({
     isVisible: false,
     hasChanges: false,
     inboxId: null,
-    inboxData: {}
+    inboxData: Map()
   }),
   listIds: List(),
   list: List(),
@@ -87,6 +87,10 @@ const setManagerPropData = (state, prop, value) => {
     .setIn(['Manager', 'hasChanges'], hasChanges);
 };
 
+const resOne = (state, data) => {
+  return setIsNetProcessing(state, false);
+};
+
 const resUpsert = (state, data) => {
   const index = state.get('listIds').indexOf(data.id);
   const inboxId = data.id;
@@ -130,9 +134,12 @@ const studyInboxReducer = (state = initialState, action) => {
   switch(action.type) {
     case actions.RES_MANY:
       return setList(state, action.page, action.list);
+    case actions.REQ_ONE:
     case actions.REQ_UPSERT:
-    case actions.REQ_DELETE:
+    case actions.REQ_DESTROY:
       return setIsNetProcessing(state, true);
+    case actions.RES_ONE:
+      return resOne(state, action.data);
     case actions.RES_UPSERT:
       return setIsNetProcessing(resUpsert(state, action.data), false);
     case actions.RES_DESTROY:

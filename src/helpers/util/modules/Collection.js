@@ -35,26 +35,37 @@ class UtilCollection {
    * @returns {Object}
    */
   static postDeclaration(descriptor, name) {
-    return UtilCollection.setUrlRoot(descriptor, name);
+    return UtilCollection.setUrlEndpoint(descriptor, name);
   };
 
   /**
-   * Set resource endpoint
+   * Set resource url endpoint
    * @param   {Object}  descriptor
    * @param   {String}  name
    * @returns {Object}
    */
-  static setUrlRoot(descriptor, name) {
-    const urlRoot = url.format({
-      protocol: config.api.protocol,
-      hostname: config.api.host,
-      port: config.api.port,
-      pathname: _.has(config.collections, name, 'pathname')
-        ? config.collections[name].pathname
-        : ''
-    });
+  static setUrlEndpoint(descriptor, name) {
+    return _.extend(descriptor, {
+      url() {
+        const pathnameTemplate = config.collections[name].pathname;
+        const matches = pathnameTemplate.match(/\:(\w|\d)+?(\/|$)/g) || [];
+        let pathname = pathnameTemplate;
 
-    return _.extend(descriptor, {url: urlRoot});
+        matches.forEach((match) => {
+          const metaPropName = match.replace(/(:|\/)/g, '');
+          pathname.replace(match, this.getMeta(metaPropName))
+        });
+
+        const urlEndpoint = url.format({
+          protocol: config.api.protocol,
+          hostname: config.api.host,
+          port: config.api.port,
+          pathname: pathname
+        });
+
+        return urlEndpoint;
+      }
+    });
   }
 }
 
