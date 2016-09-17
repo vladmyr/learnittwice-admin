@@ -10,8 +10,10 @@ import { MANAGER_OPEN,
 } from 'src/redux/actions/studyInboxActions';
 import { TYPE as MODAL_TYPE, open } from 'src/redux/actions/modalActions';
 
-import StudyInboxList from './StudyInboxList';
-import { StudyInboxManagerContainer } from './StudyInboxManager';
+import Grid from 'src/components/General/Grid/Grid';
+import GridItem from 'src/components/General/Grid/GridItem';
+import StudyInboxList from './StudyInboxList/StudyInboxList';
+import { StudyInboxManagerContainer } from './StudyInboxManager/StudyInboxManager';
 
 class StudyInbox extends React.Component {
   constructor(props) {

@@ -18,7 +18,7 @@ import { TYPE as MODAL_TYPE,
 
 import InputText from 'src/components/General/InputText';
 import BtnGeneric from 'src/components/General/BtnGeneric';
-import { StudyItemListContainer } from 'src/components/StudyItem/StudyItemList';
+import { StudyItemListContainer } from 'src/components/StudyInbox/StudyItem/StudyItemList';
 
 const defaultProps = {
   isNetProcessing: false,
@@ -120,7 +120,7 @@ class StudyInboxManager extends React.Component {
       />
       <div className="study-item__list">
         {!this.props.inboxData.itemsLength
-          ? <span class="study-item__empty">
+          ? <span className="study-item__empty">
             There are no items added yet
           </span>
           : <StudyItemListContainer />
