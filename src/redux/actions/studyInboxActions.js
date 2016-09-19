@@ -140,7 +140,6 @@ export const fetchOpenManager = (id) => {
   return (dispatch) => {
     dispatch(openManager(id));
     dispatch(fetch(id));
-    return;
   }
 };
 

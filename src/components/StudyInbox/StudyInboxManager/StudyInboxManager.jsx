@@ -123,7 +123,10 @@ class StudyInboxManager extends React.Component {
           ? <span className="study-item__empty">
             There are no items added yet
           </span>
-          : <StudyItemListContainer />
+          : <StudyItemListContainer
+            actCreateItem={this.props.actCreateItem}
+            actSelectItem={this.props.actSelectItem}
+          />
         }
       </div>
     </div>

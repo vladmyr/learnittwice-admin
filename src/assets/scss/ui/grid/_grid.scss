@@ -5,17 +5,8 @@
 .l-grid {
   @include l-grid-item-inner-padding($s-l-grid-item-padding-vertical, $s-l-grid-item-padding-horizontal);
 }
-.l-grid__item { float:left; }
-
-
-
-/*
- * GRID DOUBLET
- */
-
-.l-grid--unlimited { display:inline-block; min-width:100%;
-  @include l-grid-item-width(50%);
-}
+.l-grid--infinite { @include l-grid-infinite; }
+.l-grid__item { display:inline-block; }
 
 
 

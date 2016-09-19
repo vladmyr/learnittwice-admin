@@ -75,10 +75,10 @@ client:
   models:
     StudyInbox:
       pathname: /study_inboxes
-    StudyItems:
-      pathname: /study_inboxes/:inboxId/items
+    StudyItem:
+      pathname: /study_items
   collections:
     StudyInboxCollection:
       pathname: /study_inboxes
-    StudyItems:
-      pathname: /study_items
+    StudyItemCollection:
+      pathname: /study_inboxes/:inboxId/items

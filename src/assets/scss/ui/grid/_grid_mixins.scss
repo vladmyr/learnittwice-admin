@@ -1,3 +1,10 @@
+@mixin l-grid-infinite { display:flex; width:auto;
+  white-space:nowrap;overflow-y:auto;
+
+  .l-grid__item { flex-shrink:0; }
+}
+
+
 @mixin l-grid-item-inner-padding($s-padding-vertical, $s-padding-horizontal:$s-padding-vertical) {
   .l-grid__item { padding:$s-padding-vertical $s-padding-horizontal; }
 }
