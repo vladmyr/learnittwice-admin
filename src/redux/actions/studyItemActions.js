@@ -76,7 +76,7 @@ export const fetch = (id) => {
 
 export const fetchOpenManager = (id) => {
   return (dispatch) => {
-    dispatch(openManager(id));
     dispatch(fetch(id));
+    dispatch(openManager(id));
   }
 };

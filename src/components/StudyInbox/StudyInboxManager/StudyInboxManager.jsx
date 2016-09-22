@@ -18,7 +18,7 @@ import { TYPE as MODAL_TYPE,
 
 import InputText from 'src/components/General/InputText';
 import BtnGeneric from 'src/components/General/BtnGeneric';
-import { StudyItemListContainer } from 'src/components/StudyInbox/StudyItem/StudyItemList';
+import { StudyItemListContainer } from 'src/components/StudyInbox/StudyItem/StudyItemList/StudyItemList';
 
 const defaultProps = {
   isNetProcessing: false,
@@ -37,16 +37,6 @@ class StudyInboxManager extends React.Component {
 
   shouldStateUpdateListener(prop, value) {
     this.props.setManagerPropData(prop, value);
-  }
-
-  shouldLocalStateUpdateListener(prop, value) {
-    const localState = _.clone(this.props.inboxData);
-
-    localState[prop] = value;
-
-    return this.setState({
-      hasChanges: !_.isEqual(localState, this.props.prevInboxData)
-    });
   }
 
   reset() {

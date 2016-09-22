@@ -22,6 +22,7 @@ import Grid from 'src/components/General/Grid/Grid';
 import GridItem from 'src/components/General/Grid/GridItem';
 import StudyInboxList from './StudyInboxList/StudyInboxList';
 import { StudyInboxManagerContainer } from './StudyInboxManager/StudyInboxManager';
+import { StudyItemManagerContainer } from './StudyItem/StudyItemManager/StudyItemManager';
 
 
 
@@ -116,7 +117,9 @@ class StudyInbox extends React.Component {
       }
       {this.props.StudyItem.Manager.isVisible
         ? <div className="l-grid__item">
-            <h4>StudyItemManager</h4>
+            <StudyItemManagerContainer
+              ref="studyItemManager"
+            />
           </div>
         : null
       }

@@ -11,12 +11,34 @@ const initialState = Map({
     hasChanges: false,
     itemId: null,
     itemData: Map(),
-    itemPersistedData: Map()
+    itemPersistedState: Map()
   }),
   listIds: List(),
   list: List(),
   page: 0
 });
+
+/**
+ * Get item by its id
+ * @param   {Immutable.Map} state
+ * @param   {String} id
+ * @returns {Immutable.Map}
+ * @private
+ */
+
+const _getItemById = (state, id) => {
+  let item = Map();
+
+  if (id) {
+    let index = state.get('listIds').indexOf(id);
+
+    if (index != -1) {
+      item = state.getIn(['list', index]);
+    }
+  }
+
+  return item;
+};
 
 const setIsNetProcessing = (state, bool = false) => {
   return state
@@ -30,14 +52,25 @@ const setList = (state, page = 0, list = []) => {
     .set('list', fromJS(list))
 };
 
+const reqOne = (state, id) => {
+  const item = _getItemById(state, id);
+
+  if (!item) {
+    return state
+  }
+
+  return state
+    .mergeIn(['Manager', 'itemPersistedState'], item);
+};
+
 const resOne = (state, item) => {
-  const inboxData = fromJS(item);
+  const itemData = fromJS(item);
 
   return state
     .setIn(['Manager', 'hasChanges'], false)
     .setIn(['Manager', 'itemId'], item.id)
-    .mergeIn(['Manager', 'itemData'], inboxData)
-    .mergeIn(['Manager', 'itemPersistedState'], inboxData);
+    .mergeIn(['Manager', 'itemData'], itemData)
+    .mergeIn(['Manager', 'itemPersistedState'], itemData);
 };
 
 const managerOpen = (state, id) => {
@@ -62,6 +95,7 @@ const studyItemReducer = (state = initialState, action) => {
     case actions.SET_LIST:
       return setList(state, action.page, action.list);
     case actions.REQ_ONE:
+      return setIsNetProcessing(reqOne(state, action.id), true);
     case actions.REQ_UPSERT:
     case actions.REQ_DESTROY:
       return setIsNetProcessing(state, true);
