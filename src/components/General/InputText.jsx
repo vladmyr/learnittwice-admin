@@ -52,14 +52,17 @@ class InputText extends React.Component {
     const onBlurBound = this.onBlur.bind(this);
 
     return <div className="c-input__text">
-      <label className="c-input__header">{this.props.title}</label>
+      {this.props.title
+        ? <label className="c-input__header">{this.props.title}</label>
+        : null
+      }
       <input type="text"
-             className="c-input__field"
-             name={this.props.name}
-             placeholder={this.props.placeholder}
-             value={this.state.value}
-             onChange={onChangeBound}
-             onBlur={onBlurBound}
+        className="c-input__field"
+        name={this.props.name}
+        placeholder={this.props.placeholder}
+        value={this.state.value}
+        onChange={onChangeBound}
+        onBlur={onBlurBound}
       />
     </div>
   }

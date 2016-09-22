@@ -3,8 +3,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import InputText from 'src/components/General/InputText';
 import BtnGeneric from 'src/components/General/BtnGeneric';
+import StudyItemManagerMetadata from './StudyItemManagerMetadata';
+import StudyItemManagerType from './StudyItemManagerType';
 
 class StudyItemManager extends React.Component {
   constructor(props) {
@@ -53,13 +54,19 @@ class StudyItemManager extends React.Component {
           />
           <BtnGeneric
             className="cycle-button"
-            label="R"
+            label="S"
             isDisabled={false}
             onClick={saveBound}
           />
         </div>
       </div>
-
+      <div className="">
+        <StudyItemManagerMetadata slug={this.props.itemData.slug} />
+        <StudyItemManagerType />
+        <StudyItemManagerType title="Answer"
+          classNameModifier="study-item__type--answer"
+        />
+      </div>
     </div>
   }
 }
