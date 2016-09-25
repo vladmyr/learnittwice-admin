@@ -24,6 +24,10 @@ class StudyItemManager extends React.Component {
 
   }
 
+  shouldStateUpdateListener(prop, value) {
+    this.props.setManagerPropData(prop, value);
+  }
+
   render() {
     const destroyBound = this.destroy.bind(this);
     const resetBound = this.reset.bind(this);
