@@ -11,7 +11,7 @@ const defaultProps = {
     label: 'Pick one'
   },
   options: [],
-  initialValue: false,
+  selectedValue: false,
   shouldStateUpdateListener: Function.prototype()
 };
 
@@ -26,14 +26,15 @@ class InputSelect extends React.Component {
   }
 
   onChange() {
-    this.state.isPlaceholderDisabled = true;
-
 
   }
 
   render() {
-    return <select className="input-control select"
-       value={this.props.initialValue}
+    const onChangeBound = this.onChange.bind(this);
+
+    return <select className="select"
+       value={this.props.selectedValue}
+       onChange={onChangeBound}
     >
       {_.isEmpty(this.props.optionsPlaceholder)
         ? null
@@ -44,8 +45,12 @@ class InputSelect extends React.Component {
             {this.props.optionsPlaceholder.label}
           </option>
       }
-      {this.props.options.map((option) => {
-        return <option value={option.value}>
+      {this.props.options.map((option, index) => {
+        return <option
+          key={index}
+          value={option.value}
+          disabled={option.isDisabled ? option.isDisabled : false}
+        >
           {option.label}
         </option>
       })}
