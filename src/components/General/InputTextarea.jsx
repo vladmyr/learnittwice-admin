@@ -10,7 +10,6 @@ class InputTextarea extends InputText {
 
   render() {
     const onChangeBound = this.onChange.bind(this);
-    const onBlurBound = this.onBlur.bind(this);
 
     return <div className="c-input__textarea">
       {this.props.title
@@ -23,7 +22,6 @@ class InputTextarea extends InputText {
         value={this.state.value}
         rows={this.props.rows}
         onChange={onChangeBound}
-        onBlur={onBlurBound}
       >
       </textarea>
     </div>

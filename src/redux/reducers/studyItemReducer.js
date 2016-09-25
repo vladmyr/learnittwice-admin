@@ -4,13 +4,38 @@ import { Map, List, fromJS } from 'immutable';
 import * as _ from 'underscore';
 import * as actions from 'src/redux/actions/studyItemActions';
 
+const QUESTION_TYPE = {
+  KEYBOARD_TYPE: 'keyboardType',
+  SELECT_SINGLE: 'selectSingle',
+  SELECT_MULTIPLE: 'selectMultiple',
+  SELECT_SEQUENCE: 'selectSequence'
+};
+
+const QUESTION_COMPONENT_TYPE = {
+  TEXT: 'text',
+  IMAGE: 'mediaImage',
+  AUDIO: 'mediaAudio',
+  LEMMA: 'refLemma',
+  SYNSET: 'refSynset'
+};
+
 const initialState = Map({
   Manager: Map({
     isNetProcessing: false,
     isVisible: false,
     hasChanges: false,
     itemId: null,
-    itemData: Map(),
+    itemData: Map({
+      questionType: QUESTION_TYPE.KEYBOARD_TYPE,
+      question: Map({
+        type: QUESTION_COMPONENT_TYPE.TEXT,
+        content: ''
+      }),
+      answer: Map({
+        type: QUESTION_COMPONENT_TYPE.TEXT,
+        content: ''
+      })
+    }),
     itemPersistedState: Map()
   }),
   listIds: List(),
@@ -84,9 +109,12 @@ const managerResetData = (state) => {
 };
 
 const managerSetPropData = (state, prop, value) => {
+  // handle nested props
+  const propPath = ['Manager', 'itemData'].concat(prop.split('.'));
+
   // ToDo: track hasChanges - dehardcode value
   return state
-    .setIn(['Manager', 'inboxData', prop], fromJS(value))
+    .setIn(propPath, fromJS(value))
     .setIn(['Manager', 'hasChanges'], true);
 };
 
@@ -110,4 +138,4 @@ const studyItemReducer = (state = initialState, action) => {
   }
 };
 
-export { studyItemReducer };
+export { studyItemReducer, QUESTION_TYPE, QUESTION_COMPONENT_TYPE };

@@ -15,7 +15,8 @@ select { display:inline-block; position:relative;
  * COMPONENT InputText
  */
 
-.c-input__text {
+.c-input__text,
+.c-input__select {
   .c-input__header { display:block; margin-bottom:0; font-weight:600; }
   // ToDo: should be removed after removing metroui theme
   .c-input__header,

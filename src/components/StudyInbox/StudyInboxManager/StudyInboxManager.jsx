@@ -6,15 +6,19 @@ import { Map } from 'immutable';
 import * as _ from 'underscore';
 
 import { initialState } from 'src/redux/reducers/studyInboxReducer';
-import { save,
+import {
+  save,
   destroy,
   openManager,
   resetManagerData,
-  setManagerPropData } from 'src/redux/actions/studyInboxActions';
-import { TYPE as MODAL_TYPE,
+  setManagerPropData
+} from 'src/redux/actions/studyInboxActions';
+import {
+  TYPE as MODAL_TYPE,
   WINDOW_CLASS_MODIFIER as MODAL_WINDOW_CLASS_MODIFIER,
   open as openModal
-} from 'src/redux/actions/modalActions';
+}
+  from 'src/redux/actions/modalActions';
 
 import InputText from 'src/components/General/InputText';
 import BtnGeneric from 'src/components/General/BtnGeneric';

@@ -7,37 +7,36 @@ import InputSelect from 'src/components/General/InputSelect';
 import InputText from 'src/components/General/InputText';
 import InputTextarea from 'src/components/General/InputTextarea';
 
-const TYPE = {
-  TEXT: 'text',
-  IMAGE: 'mediaImage',
-  AUDIO: 'mediaAudio',
-  LEMMA: 'refLemma',
-  SYNSET: 'refSynset'
-};
+import {
+  QUESTION_COMPONENT_TYPE as TYPE
+} from 'src/redux/reducers/studyItemReducer'
 
 const defaultProps = {
-  title: 'Question',
   classNameModifier: 'study-item__type--question',
+  title: 'Question',
+  contentName: 'content',
+  contentValue: '',
+  typeName: 'name',
   typeOptions: {
     optionsPlaceholder: {},
     options: [{
       value: TYPE.TEXT,
-      label: 'text'
+      label: 'Text'
     }, {
       value: TYPE.LEMMA,
-      label: 'lemma',
+      label: 'Wordnet - Lemma',
       isDisabled: true
     }, {
       value: TYPE.SYNSET,
-      label: 'synset',
+      label: 'Wordnet - Synset',
       isDisabled: true
     }, {
       value: TYPE.IMAGE,
-      label: 'image',
+      label: 'Media - Image',
       isDisabled: true
     }, {
       value: TYPE.AUDIO,
-      label: 'audio',
+      label: 'Media - Audio',
       isDisabled: true
     }]
   },
@@ -52,16 +51,18 @@ class StudyItemManagerType extends React.Component {
   render() {
     return <div className="study-item__type">
       <h5>{this.props.title}</h5>
-      <InputSelect title=""
+      <InputSelect
+        title=""
+        name={this.props.typeName}
         selectedValue={this.props.typeSelected}
         {...this.props.typeOptions}
       />
       { this.props.typeSelected == TYPE.TEXT
         ? <InputTextarea
-            ref="questionType"
-            name="questionType"
+            name={this.props.contentName}
             title=""
-            value=""
+            value={this.props.contentValue}
+            shouldStateUpdateListener={this.props.shouldStateUpdateListener}
           />
         : null
       }

@@ -8,7 +8,6 @@ const defaultProps = {
   placeholder: 'placeholder',
   name: 'name',
   value: 'value',
-  stateChangeListener: Function.prototype(),
   shouldStateUpdateListener: Function.prototype()
 };
 
@@ -28,8 +27,8 @@ class InputText extends React.Component {
   }
 
   internalStateChangeListener() {
-    if (this.props.stateChangeListener) {
-      this.props.stateChangeListener(this.props.name, this.state.value);
+    if (this.props.value != this.state.value) {
+      this.props.shouldStateUpdateListener(this.props.name, this.state.value);
     }
   }
 
@@ -39,17 +38,8 @@ class InputText extends React.Component {
     }, this.internalStateChangeListener);
   }
 
-  onBlur(event) {
-    const value = event.target.value;
-
-    if (this.props.shouldStateUpdateListener && this.props.value != value) {
-      this.props.shouldStateUpdateListener(this.props.name, value);
-    }
-  }
-
   render() {
     const onChangeBound = this.onChange.bind(this);
-    const onBlurBound = this.onBlur.bind(this);
 
     return <div className="c-input__text">
       {this.props.title
@@ -62,7 +52,6 @@ class InputText extends React.Component {
         placeholder={this.props.placeholder}
         value={this.state.value}
         onChange={onChangeBound}
-        onBlur={onBlurBound}
       />
     </div>
   }

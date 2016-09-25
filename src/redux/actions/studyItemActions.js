@@ -10,6 +10,7 @@ export const REQ_ONE = 'STUDY_ITEM_REQ_ONE';
 export const RES_ONE = 'STUDY_ITEM_RES_ONE';
 export const MANAGER_OPEN = 'STUDY_ITEM_MANAGER_OPEN';
 export const MANAGER_RESET_DATA = 'STUDY_ITEM_MANAGER_RESET_DATA';
+export const MANAGER_SET_PROP_DATA = 'STUDY_ITEM_MANAGER_SET_PROP_DATA';
 
 
 
@@ -45,6 +46,11 @@ export const openManager = (id) => ({
   id: id
 });
 
+export const setManagerPropData = (prop, value) => ({
+  type: MANAGER_SET_PROP_DATA,
+  prop: prop,
+  value: value
+});
 
 
 /** THUNK ACTION CREATORS */

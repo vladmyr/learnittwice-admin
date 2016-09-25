@@ -5,12 +5,7 @@ import React from 'react';
 import InputText from 'src/components/General/InputText';
 import InputSelect from 'src/components/General/InputSelect';
 
-const QUESTION_TYPE = {
-  KEYBOARD_TYPE: 'keyboardType',
-  SELECT_SINGLE: 'selectSingle',
-  SELECT_MULTIPLE: 'selectMultiple',
-  SELECT_SEQUENCE: 'selectSequence'
-};
+import { QUESTION_TYPE } from 'src/redux/reducers/studyItemReducer';
 
 const defaultProps = {
   slug: '',
@@ -19,7 +14,7 @@ const defaultProps = {
     optionsPlaceholder: {},
     options: [{
       value: QUESTION_TYPE.KEYBOARD_TYPE,
-      label: 'Keyboard type in'
+      label: 'Type from keyboard'
     }, {
       value: QUESTION_TYPE.SELECT_SINGLE,
       label: 'Select single',
@@ -47,12 +42,15 @@ class StudyItemManagerMetadata extends React.Component {
       <h5>Metadata</h5>
       <InputText
         title="Slug"
+        name="slug"
         placeholder="uniq-slug-name"
         value={this.props.slug}
         shouldStateUpdateListener={this.props.shouldStateUpdateListener}
       />
       <InputSelect
         title="Question type"
+        name="questionType"
+        shouldStateUpdateListener={this.props.shouldStateUpdateListener}
         selectedValue={this.props.questionTypeSelected}
         {...this.props.questionTypeOptions}
       />

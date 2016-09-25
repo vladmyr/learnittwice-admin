@@ -7,6 +7,11 @@ import BtnGeneric from 'src/components/General/BtnGeneric';
 import StudyItemManagerMetadata from './StudyItemManagerMetadata';
 import StudyItemManagerType from './StudyItemManagerType';
 
+import {
+  resetManagerData,
+  setManagerPropData
+} from 'src/redux/actions/studyItemActions';
+
 class StudyItemManager extends React.Component {
   constructor(props) {
     super(props);
@@ -32,6 +37,7 @@ class StudyItemManager extends React.Component {
     const destroyBound = this.destroy.bind(this);
     const resetBound = this.reset.bind(this);
     const saveBound = this.save.bind(this);
+    const shouldStateUpdateListenerBound = this.shouldStateUpdateListener.bind(this);
 
     return <div className="study-item__manager">
       <div className="l-grid-flex">
@@ -65,10 +71,26 @@ class StudyItemManager extends React.Component {
         </div>
       </div>
       <div className="">
-        <StudyItemManagerMetadata slug={this.props.itemData.slug} />
-        <StudyItemManagerType />
-        <StudyItemManagerType title="Answer"
+        <StudyItemManagerMetadata
+          slug={this.props.itemData.slug}
+          questionTypeSelected={this.props.itemData.questionType}
+          shouldStateUpdateListener={shouldStateUpdateListenerBound}
+        />
+        <StudyItemManagerType
+          typeName="question.type"
+          typeSelected={this.props.itemData.question.type}
+          contentName="question.content"
+          contentValue={this.props.itemData.question.content}
+          shouldStateUpdateListener={shouldStateUpdateListenerBound}
+        />
+        <StudyItemManagerType
+          title="Answer"
           classNameModifier="study-item__type--answer"
+          typeName="answer.type"
+          typeSelected={this.props.itemData.answer.type}
+          contentName="answer.content"
+          contentValue={this.props.itemData.answer.content}
+          shouldStateUpdateListener={shouldStateUpdateListenerBound}
         />
       </div>
     </div>
@@ -78,7 +100,10 @@ class StudyItemManager extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return state.getIn(['StudyItem', 'Manager']).toJS();
 };
-const mapDispatchToProps = ({});
+const mapDispatchToProps = ({
+  resetManagerData,
+  setManagerPropData
+});
 
 const StudyItemManagerContainer = connect(
   mapStateToProps,
