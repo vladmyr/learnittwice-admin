@@ -1,6 +1,7 @@
-$sz-input-text:14px;
+$fz-input-text:14px;
 
-$s-input-text-min-height:em(28px, $sz-input-text);
+$s-input-text-min-height:em(28px, $fz-input-text);
 $s-input-text-height:$s-input-text-min-height;
-$s-input-text-margin-v:em(4px, $sz-input-text);
-$s-input-text-padding-h:em(4px, $sz-input-text);
+$s-input-text-margin-v:em(4px, $fz-input-text);
+$s-input-text-padding-w:em(4px, $fz-input-text);
+$s-input-text-padding-h:em(4px, $fz-input-text);
