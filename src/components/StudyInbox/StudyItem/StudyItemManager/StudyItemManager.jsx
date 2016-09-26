@@ -9,7 +9,9 @@ import StudyItemManagerType from './StudyItemManagerType';
 
 import {
   resetManagerData,
-  setManagerPropData
+  setManagerPropData,
+  save,
+  destroy
 } from 'src/redux/actions/studyItemActions';
 
 class StudyItemManager extends React.Component {
@@ -18,15 +20,15 @@ class StudyItemManager extends React.Component {
   }
 
   reset() {
-
+    this.props.resetManagerData();
   }
 
   save() {
-
+    this.props.save();
   }
 
   destroy() {
-
+    this.props.destroy();
   }
 
   shouldStateUpdateListener(prop, value) {

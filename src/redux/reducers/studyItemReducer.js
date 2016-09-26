@@ -105,7 +105,21 @@ const managerOpen = (state, id) => {
 };
 
 const managerResetData = (state) => {
+  let newState = state
+    .setIn(
+      ['Manager', 'itemData'],
+      initialState.getIn(['Manager', 'itemData'])
+    );
 
+  if (state.getIn(['Manager', 'itemId'])) {
+    return newState
+      .mergeIn(
+        ['Manager', 'itemData'],
+        state.getIn(['Manager', 'itemPersistedState'])
+      );
+  } else {
+    return newState;
+  }
 };
 
 const managerSetPropData = (state, prop, value) => {
@@ -131,6 +145,8 @@ const studyItemReducer = (state = initialState, action) => {
       return setIsNetProcessing(resOne(state, action.item), false);
     case actions.MANAGER_OPEN:
       return managerOpen(state, action.id);
+    case actions.MANAGER_RESET_DATA:
+      return managerResetData(state);
     case actions.MANAGER_SET_PROP_DATA:
       return managerSetPropData(state, action.prop, action.value);
     default:

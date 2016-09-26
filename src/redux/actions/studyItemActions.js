@@ -8,6 +8,10 @@ export const REQ_MANY = 'STUDY_ITEM_REQ_MANY';
 export const RES_MANY = 'STUDY_ITEM_RES_MANY';
 export const REQ_ONE = 'STUDY_ITEM_REQ_ONE';
 export const RES_ONE = 'STUDY_ITEM_RES_ONE';
+export const REQ_UPSERT = 'STUDY_ITEM_REQ_UPSERT';
+export const RES_UPSERT = 'STUDY_ITEM_RES_UPSERT';
+export const REQ_DESTROY = 'STUDY_ITEM_REQ_DESTROY';
+export const RES_DESTROY = 'STUDY_ITEM_RES_DESTROY';
 export const MANAGER_OPEN = 'STUDY_ITEM_MANAGER_OPEN';
 export const MANAGER_RESET_DATA = 'STUDY_ITEM_MANAGER_RESET_DATA';
 export const MANAGER_SET_PROP_DATA = 'STUDY_ITEM_MANAGER_SET_PROP_DATA';
@@ -41,6 +45,25 @@ export const resOne = (item) => ({
   item: item
 });
 
+export const reqUpsert = () => ({
+  type: REQ_UPSERT
+});
+
+export const resUpsert = (data) => ({
+  type: RES_UPSERT,
+  data: data
+});
+
+export const reqDestroy = (id) => ({
+  type: REQ_DESTROY,
+  id: id
+});
+
+export const resDestroy = (id) => ({
+  type: RES_DESTROY,
+  id: id
+});
+
 export const openManager = (id) => ({
   type: MANAGER_OPEN,
   id: id
@@ -51,6 +74,11 @@ export const setManagerPropData = (prop, value) => ({
   prop: prop,
   value: value
 });
+
+export const resetManagerData = () => ({
+  type: MANAGER_RESET_DATA
+});
+
 
 
 /** THUNK ACTION CREATORS */
@@ -84,5 +112,48 @@ export const fetchOpenManager = (id) => {
   return (dispatch) => {
     dispatch(fetch(id));
     dispatch(openManager(id));
+  }
+};
+
+export const save = () => {
+  return (dispatch, getState) => {
+    const state = getState();
+    const studyItem = new StudyItem(state.getIn(['StudyItem', 'Manager', 'itemData']));
+
+    dispatch(reqUpsert());
+
+    return studyItem
+      .save()
+      .then((result) => {
+        return dispatch(resUpsert(result.obj.toJSON()));
+      })
+      .catch((e) => {
+        // ToDo: implement error handling
+        console.error(e);
+      })
+  }
+};
+
+export const destroy = () => {
+  return (dispatch, getState) => {
+    const state = getState();
+    const itemId = state.getIn(['StudyItem', 'Manager', 'itemId']);
+    const studyItem = new StudyItem({ id: itemId });
+
+    if (!itemId) {
+      return
+    }
+
+    dispatch(reqDestroy(id));
+
+    return studyItem
+      .destroy()
+      .then((result) => {
+        return dispatch(resDestroy(result.obj.id));
+      })
+      .catch((e) => {
+        // ToDo: implement error handling
+        console.error(e);
+      })
   }
 };
