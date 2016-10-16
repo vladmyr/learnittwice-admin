@@ -65,6 +65,52 @@ const _getItemById = (state, id) => {
   return item;
 };
 
+
+/**
+ * Deep comparison of two variables
+ * @param   {*}       objA
+ * @param   {*}       objB
+ * @param   {Boolean} [hasChanges=false]
+ * @returns {Boolean}
+ * @private
+ */
+const _calcRecursiveComparison = (objA, objB, hasChanges = false) => {
+  if (hasChanges) {
+    // true - skip
+    return hasChanges;
+  } else if ((typeof objA != 'object' && typeof objB != 'object')) {
+    // non Object data types
+    return objA != objB;
+  } else {
+    // Object (Array) data types
+    return Object.keys(objA).reduce((prevValue, key) => {
+      if (prevValue) {
+        return prevValue
+      } else {
+        const valA = objA[key];
+        const valB = objB[key];
+
+        if (valA && valB && typeof valA == 'object' && typeof valB == 'object') {
+          // Object (Array) data types
+          return _calcRecursiveComparison(valA, valB, prevValue);
+        } else {
+          // rest of data types
+          return valA != valB;
+        }
+      }
+    }, hasChanges);
+  }
+};
+
+const setHasChanges = (state) => {
+  const itemPersistedState = state.getIn(['Manager', 'itemPersistedState']).toJS();
+  const itemState = state.getIn(['Manager', 'itemData']).toJS();
+  // FIXME: handle '_id' property
+  const hasChanges = _calcRecursiveComparison(itemState, itemPersistedState);
+  return state
+    .setIn(['Manager', 'hasChanges'], hasChanges);
+};
+
 const setIsNetProcessing = (state, bool = false) => {
   return state
     .setIn(['Manager', 'isNetProcessing'], bool);
@@ -125,11 +171,8 @@ const managerResetData = (state) => {
 const managerSetPropData = (state, prop, value) => {
   // handle nested props
   const propPath = ['Manager', 'itemData'].concat(prop.split('.'));
-
-  // ToDo: track hasChanges - dehardcode value
   return state
-    .setIn(propPath, fromJS(value))
-    .setIn(['Manager', 'hasChanges'], true);
+    .setIn(propPath, fromJS(value));
 };
 
 const studyItemReducer = (state = initialState, action) => {
@@ -148,7 +191,7 @@ const studyItemReducer = (state = initialState, action) => {
     case actions.MANAGER_RESET_DATA:
       return managerResetData(state);
     case actions.MANAGER_SET_PROP_DATA:
-      return managerSetPropData(state, action.prop, action.value);
+      return setHasChanges(managerSetPropData(state, action.prop, action.value));
     default:
       return state;
   }

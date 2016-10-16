@@ -61,13 +61,13 @@ class StudyItemManager extends React.Component {
           <BtnGeneric
             className="cycle-button"
             label="R"
-            isDisabled={false}
+            isDisabled={!this.props.hasChanges}
             onClick={resetBound}
           />
           <BtnGeneric
             className="cycle-button"
             label="S"
-            isDisabled={false}
+            isDisabled={!this.props.hasChanges}
             onClick={saveBound}
           />
         </div>
@@ -104,7 +104,8 @@ const mapStateToProps = (state, ownProps) => {
 };
 const mapDispatchToProps = ({
   resetManagerData,
-  setManagerPropData
+  setManagerPropData,
+  save
 });
 
 const StudyItemManagerContainer = connect(

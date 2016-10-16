@@ -118,7 +118,9 @@ export const fetchOpenManager = (id) => {
 export const save = () => {
   return (dispatch, getState) => {
     const state = getState();
-    const studyItem = new StudyItem(state.getIn(['StudyItem', 'Manager', 'itemData']));
+    let studyItemDescriptor = state.getIn(['StudyItem', 'Manager', 'itemData']).toJS();
+    studyItemDescriptor.studyInboxId = state.getIn(['StudyInbox', 'Manager', 'inboxId']);
+    const studyItem = new StudyItem(studyItemDescriptor);
 
     dispatch(reqUpsert());
 
